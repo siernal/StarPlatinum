@@ -363,6 +363,46 @@ nav a.lit{color:#fff!important}
 .ach-bar i{position:absolute;inset:0;border-radius:8px;background:linear-gradient(90deg,#7a2fd0,#d9a21b,#d6368a);transform-origin:left;transform:scaleX(var(--p,0))}
 .ach-bar span{position:relative;top:14px;font-size:.75rem;font-weight:700;color:var(--muted)}
 @media (max-width:600px){.ach-grid{grid-template-columns:1fr}}
+
+/* ===== topbar v3 ===== */
+.topbar{position:relative;overflow:hidden;isolation:isolate;background:#14072a;font-size:.86rem;border-bottom:1px solid #ffffff1a}
+.tb-aurora{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.tb-aurora i{position:absolute;width:45%;height:260%;top:-80%;border-radius:50%;filter:blur(38px);opacity:.75;mix-blend-mode:screen;animation:tbAur 16s ease-in-out infinite alternate}
+.tb-aurora i:nth-child(1){left:-10%;background:#7a2fd0}
+.tb-aurora i:nth-child(2){left:30%;background:#d6368a;opacity:.5;animation-duration:19s;animation-delay:-6s}
+.tb-aurora i:nth-child(3){left:65%;background:#3a5bff;opacity:.55;animation-duration:22s;animation-delay:-11s}
+@keyframes tbAur{0%{transform:translateX(-12%) rotate(0)}50%{transform:translateX(18%) rotate(25deg) scale(1.15)}100%{transform:translateX(-5%) rotate(-15deg)}}
+.topbar::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(1.2px 1.2px at 20px 12px,#fff,transparent),radial-gradient(1px 1px at 90px 30px,#ffe58a,transparent),radial-gradient(1.4px 1.4px at 150px 8px,#fff,transparent),radial-gradient(1px 1px at 220px 36px,#d48cff,transparent),radial-gradient(1.2px 1.2px at 290px 20px,#fff,transparent);background-size:320px 46px;opacity:.7;animation:tbStars 40s linear infinite}
+@keyframes tbStars{to{background-position:-320px 0}}
+.topbar::after{content:"";position:absolute;top:0;bottom:0;width:30%;left:-35%;z-index:-1;background:linear-gradient(100deg,transparent,#ffffff1f 45%,#ffe58a33 50%,#ffffff1f 55%,transparent);animation:tbSweep 7s ease-in-out infinite}
+@keyframes tbSweep{0%,40%{left:-35%}100%{left:110%}}
+.topbar .wrap{padding:.5rem 0;gap:.5rem 1rem;align-items:center}
+.topbar .row{align-items:center;gap:.45rem .55rem}
+.tb-name{display:inline-flex;align-items:center;gap:.5rem;margin-right:.4rem;font-weight:800;letter-spacing:.01em}
+.tb-tri{width:18px;height:18px;animation:tbSpin 9s linear infinite;filter:drop-shadow(0 0 6px #ffe58a99)}
+@keyframes tbSpin{to{transform:rotate(360deg)}}
+.tb-shine{background:linear-gradient(90deg,#ffe58a,#fff 25%,#f5c542 50%,#d48cff 75%,#ffe58a);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+.tb-chip{position:relative;display:inline-flex;align-items:center;gap:.45rem;padding:.24rem .8rem .24rem .28rem;border-radius:99px;background:#ffffff12;border:1px solid #ffffff24;color:#fff;text-decoration:none;cursor:pointer;backdrop-filter:blur(6px);transition:background .3s,border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+.tb-chip:hover{background:#ffffff24;border-color:#ffe58a88;box-shadow:0 0 0 3px #ffe58a1f,0 6px 18px -6px #f5c54299;transform:translateY(-1px)}
+.topbar a.tb-chip:hover{color:#fff}
+.tb-ico{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ffe58a,#f5a742);color:#2a0f4f;flex:none;box-shadow:0 0 10px #f5c54266}
+.tb-ico svg{width:12px;height:12px}
+.tb-hint{font-style:normal;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#ffe58a;max-width:0;overflow:hidden;opacity:0;white-space:nowrap;transition:max-width .4s var(--ease),opacity .3s,margin .3s}
+.tb-chip:hover .tb-hint{max-width:90px;opacity:1;margin-left:.15rem}
+.tb-status{padding-left:.7rem;cursor:default}
+.tb-clock{cursor:default;font-variant-numeric:tabular-nums}
+.tb-clock b{color:#ffe58a;font-weight:700}
+.tb-addr{cursor:default}
+.copy-mail{cursor:pointer;font-weight:600;color:var(--violet-700);border-bottom:1px dashed currentColor;transition:color .2s}
+.copy-mail:hover{color:var(--gold-deep)}
+footer .copy-mail{color:inherit;font-weight:400}
+footer .copy-mail:hover{color:var(--gold)}
+.ctable .copy-mail{font-size:1.15rem;border-bottom:0}
+.toast{position:fixed;left:50%;bottom:28px;z-index:290;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:#1c0b38ee;color:#fff;padding:.8rem 1.3rem;border-radius:99px;font-weight:600;box-shadow:0 20px 40px -14px #000a,0 0 0 1px #ffffff22;backdrop-filter:blur(10px);transition:transform .45s var(--ease),opacity .35s;display:flex;align-items:center;gap:.6rem;max-width:calc(100% - 2rem)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast::before{content:"\2713";width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#3ddc84,#139a74);display:grid;place-items:center;font-size:.8rem;flex:none}
+@media (max-width:900px){.tb-clock{display:none}}
+@media (max-width:600px){.tb-chip{font-size:.8rem}.tb-hint{display:none}}
 @media (max-width:900px){
   .hero .wrap,.split,.contacts,.mini-hero .wrap{grid-template-columns:1fr}
   .mini-hero .pic{display:none}
@@ -388,15 +428,17 @@ nav a.lit{color:#fff!important}
 <div class="curtain" aria-hidden="true"><img src="img/logo.png" alt=""></div>
 
 <div class="topbar">
+  <div class="tb-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap">
     <div class="row">
-      <span class="tb-name">ООО Компания «Star Platinum»</span>
-      <a class="tb-item" href="tel:+79030811704"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>+7 (903) 081-17-04</a>
-      <a class="tb-item" ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>info@star-platinum.ru</a>
+      <span class="tb-name"><svg class="tb-tri" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12,3 22,20 2,20" fill="none" stroke="url(#tbg)" stroke-width="3" stroke-linejoin="round"/><defs><linearGradient id="tbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe58a"/><stop offset="1" stop-color="#d48cff"/></linearGradient></defs></svg><span class="tb-shine">ООО Компания «Star Platinum»</span></span>
+      <a class="tb-chip" href="tel:+73432780914"><span class="tb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span>+7 (343) 278-09-14</a>
+      <span class="tb-chip" data-copy="info@star-platinum.ru" role="button" tabindex="0" title="Нажмите, чтобы скопировать"><span class="tb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>info@star-platinum.ru<em class="tb-hint">копировать</em></span>
     </div>
     <div class="row">
-      <span class="tb-item"><i class="pulse"></i><span id="openText">Пн–Пт 9:00–18:00</span></span>
-      <span class="tb-item tb-addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>г. Екатеринбург, ул. Академика Парина, 40/2</span>
+      <span class="tb-chip tb-status"><i class="pulse"></i><span id="openText">Пн–Пт 9:00–18:00</span></span>
+      <span class="tb-chip tb-clock"><span class="tb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>ЕКБ <b id="tbClock">--:--</b></span>
+      <span class="tb-chip tb-addr"><span class="tb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>г. Екатеринбург, ул. Шейнкмана, 75</span>
     </div>
   </div>
 </div>
@@ -654,18 +696,18 @@ nav a.lit{color:#fff!important}
         <span class="kicker">Контакты</span>
         <h2 style="font-size:var(--fs-h2);line-height:1.1;margin:.3rem 0 .6rem">Как нас найти</h2>
         <div class="ctable">
-          <div><span>Адрес</span>г. Екатеринбург, ул. Академика Парина, 40/2 (главный вход)</div>
-          <div><span>Телефон</span><a href="tel:+79030811704">+7 (903) 081-17-04</a></div>
-          <div><span>E-mail</span><a >info@star-platinum.ru</a></div>
+          <div><span>Адрес</span>г. Екатеринбург, ул. Шейнкмана, 75 (главный вход)</div>
+          <div><span>Телефон</span><a href="tel:+73432780914">+7 (343) 278-09-14</a></div>
+          <div><span>E-mail</span><span class="copy-mail" data-copy="info@star-platinum.ru" role="button" tabindex="0" title="Нажмите, чтобы скопировать">info@star-platinum.ru</span></div>
           <div><span>Режим работы</span>Пн–Пт 9:00–18:00</div>
         </div>
         <div class="map-links">
-          <a class="btn btn-violet" href="https://yandex.ru/maps/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0%20%D0%9F%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2040/2" target="_blank" rel="noopener">Яндекс Карты</a>
-          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0%20%D0%9F%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2040/2" target="_blank" rel="noopener">Google Maps</a>
+          <a class="btn btn-violet" href="https://yandex.ru/maps/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A8%D0%B5%D0%B9%D0%BD%D0%BA%D0%BC%D0%B0%D0%BD%D0%B0%2C%2075" target="_blank" rel="noopener">Яндекс Карты</a>
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A8%D0%B5%D0%B9%D0%BD%D0%BA%D0%BC%D0%B0%D0%BD%D0%B0%2C%2075" target="_blank" rel="noopener">Google Maps</a>
         </div>
       </div>
       <figure class="map reveal">
-        <iframe src="https://yandex.ru/map-widget/v1/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0%20%D0%9F%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2040/2&amp;z=16" title="Яндекс Карта: Екатеринбург, улица Академика Парина, 40/2" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://yandex.ru/map-widget/v1/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A8%D0%B5%D0%B9%D0%BD%D0%BA%D0%BC%D0%B0%D0%BD%D0%B0%2C%2075&amp;z=16" title="Яндекс Карта: Екатеринбург, улица Шейнкмана, 75" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
         <figcaption class="map-badge"><b>Star Platinum</b> · главный вход</figcaption>
       </figure>
     </div>
@@ -680,7 +722,7 @@ nav a.lit{color:#fff!important}
     <div class="cols">
       <div><h4>ООО Компания «Star Platinum»</h4><p>Операционные системы с предустановленным ПО для людей творческих профессий. Работаем с 2017 года.</p></div>
       <div><h4>Разделы</h4><ul><li><a href="#home">Главная</a></li><li><a href="#catalog">Каталог</a></li><li><a href="#about">О нас</a></li></ul></div>
-      <div><h4>Контакты</h4><ul><li><a href="tel:+79030811704">+7 (903) 081-17-04</a></li><li><a >info@star-platinum.ru</a></li><li>г. Екатеринбург, ул. Академика Парина, 40/2</li><li>Пн–Пт 9:00–18:00</li></ul></div>
+      <div><h4>Контакты</h4><ul><li><a href="tel:+73432780914">+7 (343) 278-09-14</a></li><li><span class="copy-mail" data-copy="info@star-platinum.ru" role="button" tabindex="0" title="Нажмите, чтобы скопировать">info@star-platinum.ru</span></li><li>г. Екатеринбург, ул. Шейнкмана, 75</li><li>Пн–Пт 9:00–18:00</li></ul></div>
     </div>
     <div class="copy">© 2017–2026 Star Platinum. Учебный проект.</div>
   </div>
@@ -735,7 +777,7 @@ grid.innerHTML=products.map(p=>`
   <div class="body"><h3>${p.name}</h3><p>${p.desc}</p>
    <ul>${p.list.map(l=>`<li>${l}</li>`).join('')}</ul>
    <div class="foot"><div class="price ${p.price===0?'free':''}">${fmt(p.price)}<small>${p.unit}</small></div>
-   <a class="btn ${p.price?'btn-violet':'btn-outline'}" href="mailto:info@star-platinum.ru?subject=${encodeURIComponent('Заказ: '+p.name)}">${p.price?'Заказать':'Получить'}</a></div></div>
+   <button type="button" class="btn ${p.price?'btn-violet':'btn-outline'}" data-order="${p.name}">${p.price?'Заказать':'Получить'}</button></div></div>
  </article>`).join('');
 document.querySelectorAll('[data-svg=desktop]').forEach(e=>e.innerHTML=screenSVG('oklch(78% .16 85)','oklch(42% .2 300)','oklch(55% .24 303)',{kind:'os'}));
 
@@ -1080,7 +1122,7 @@ addEventListener('load',()=>{if(hasGsap)ScrollTrigger.refresh()});
     if(P.length||R.length)requestAnimationFrame(loop);else{run=false;ctx.clearRect(0,0,W,H)}
   }
   document.addEventListener('click',e=>{
-    const b=e.target.closest('.btn,.chip,nav a,.burger,.brand');if(!b)return;
+    const b=e.target.closest('.btn,.chip,nav a,.burger,.brand,[data-copy],.tb-chip');if(!b)return;
     let x=e.clientX,y=e.clientY;if(!x&&!y){const r=b.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
     fire(x,y);
   },true);
@@ -1093,6 +1135,21 @@ if(typeof VanillaTilt!=='undefined'&&matchMedia('(hover:hover) and (prefers-redu
 
 /* recalc scroll triggers once generated graphics have changed layout */
 if(hasGsap){requestAnimationFrame(()=>ScrollTrigger.refresh());if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh());addEventListener('hashchange',()=>setTimeout(()=>ScrollTrigger.refresh(),120))}
+
+/* topbar clock, copy e-mail, order buttons */
+(function(){
+  const ck=document.getElementById('tbClock');
+  const tick=()=>{const n=new Date(),e=new Date(n.getTime()+(n.getTimezoneOffset()+300)*60000);ck.textContent=String(e.getHours()).padStart(2,'0')+':'+String(e.getMinutes()).padStart(2,'0')+':'+String(e.getSeconds()).padStart(2,'0')};
+  if(ck){tick();setInterval(tick,1000)}
+  const toast=document.createElement('div');toast.className='toast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');document.body.append(toast);
+  let tt;const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2400)};
+  const copy=t=>{try{navigator.clipboard.writeText(t).then(()=>say('Почта скопирована: '+t),()=>say(t))}catch(e){say(t)}};
+  document.addEventListener('click',e=>{
+    const c=e.target.closest('[data-copy]');if(c){copy(c.dataset.copy);return}
+    const o=e.target.closest('[data-order]');if(o)say('«'+o.dataset.order+'» — заявка принята!');
+  });
+  document.addEventListener('keydown',e=>{const c=e.target.closest&&e.target.closest('[data-copy]');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();c.click()}});
+})();
 </script>
 </body>
 </html>
