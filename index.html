@@ -340,6 +340,29 @@ nav a.lit{color:#fff!important}
   header.site.scrolled .wrap{border-radius:22px}
 }
 @media (max-width:600px){.org-depts{grid-template-columns:1fr}.tb-addr{display:none}.hdr-cta{display:none}.person.big{min-width:0;width:100%}}
+
+/* click fx + achievements */
+.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:280}
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;perspective:1100px}
+.ach{position:relative;isolation:isolate;overflow:hidden;border-radius:22px;padding:1.3rem 1.3rem 1.4rem;background:#fff;box-shadow:0 18px 36px -22px oklch(35% .18 300/.6);transform-style:preserve-3d}
+.ach::before{content:"";position:absolute;left:50%;top:50%;width:200%;aspect-ratio:1;background:conic-gradient(transparent 0 62%,var(--c) 80%,var(--gold) 88%,transparent 96%);transform:translate(-50%,-50%);animation:achspin 4.5s linear infinite;z-index:-2}
+.ach:nth-child(2)::before{animation-delay:-1.1s}.ach:nth-child(3)::before{animation-delay:-2.2s}.ach:nth-child(4)::before{animation-delay:-3.3s}
+.ach::after{content:"";position:absolute;inset:2px;border-radius:20px;background:radial-gradient(circle at 100% 0,color-mix(in oklch,var(--c) 12%,#fff),#fff 60%);z-index:-1}
+@keyframes achspin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.ach .no{position:absolute;right:.7rem;top:-.6rem;font-size:4.6rem;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--c);opacity:.28;transition:opacity .3s,transform .5s var(--ease)}
+.ach:hover .no{opacity:.6;transform:translateY(6px) scale(1.08)}
+.ach-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.8rem}
+.ach-ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--c),color-mix(in oklch,var(--c) 45%,var(--gold)));box-shadow:0 10px 22px -10px var(--c);transition:transform .5s cubic-bezier(.34,1.8,.5,1)}
+.ach-ico svg{width:26px;height:26px}
+.ach:hover .ach-ico{transform:rotate(-12deg) scale(1.15)}
+.ach-tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .7rem;border-radius:99px;color:var(--c);background:color-mix(in oklch,var(--c) 12%,#fff);margin-right:2.6rem}
+.ach h3{font-size:1.2rem;margin-bottom:.25rem}
+.ach p{color:var(--muted);font-size:.93rem;line-height:1.5}
+.live{width:8px;height:8px;border-radius:50%;background:#3ddc84;animation:pul 2s infinite}
+.ach-bar{position:relative;height:8px;border-radius:8px;background:var(--violet-100);margin-top:1.4rem;display:flex;justify-content:space-between}
+.ach-bar i{position:absolute;inset:0;border-radius:8px;background:linear-gradient(90deg,#7a2fd0,#d9a21b,#d6368a);transform-origin:left;transform:scaleX(var(--p,0))}
+.ach-bar span{position:relative;top:14px;font-size:.75rem;font-weight:700;color:var(--muted)}
+@media (max-width:600px){.ach-grid{grid-template-columns:1fr}}
 @media (max-width:900px){
   .hero .wrap,.split,.contacts,.mini-hero .wrap{grid-template-columns:1fr}
   .mini-hero .pic{display:none}
@@ -585,12 +608,31 @@ nav a.lit{color:#fff!important}
         <p>Свою деятельность компания начала в 2017 году и уже зарекомендовала себя как поставщик качественного ПО для людей творческих профессий. Каждый из 15 сотрудников вносит вклад в общее дело, а специалисты постоянно повышают квалификацию. Организацию возглавляет генеральный директор Леванов Д. А.</p>
         <p style="margin-top:1rem">Существует две версии системы: бесплатная <b>Silver Cherriot</b> для знакомства с интерфейсом и золотая <b>Gold Expirience</b> — со всеми возможностями и новейшими разработками, относящаяся к среднему ценовому сегменту.</p>
       </div>
-      <ul class="timeline reveal">
-        <li><b>2017</b><br>Основание компании, первая сборка Star Platinum.</li>
-        <li><b>Silver Cherriot</b><br>Бесплатная версия для знакомства с системой.</li>
-        <li><b>Gold Expirience</b><br>Полная версия со всем ПО и новейшими разработками.</li>
-        <li><b>Сегодня</b><br>15 специалистов, офис в Екатеринбурге.</li>
-      </ul>
+      <div class="ach-wrap">
+      <div class="ach-grid">
+        <article class="ach" style="--c:#7a2fd0">
+          <span class="no" aria-hidden="true">01</span>
+          <div class="ach-top"><span class="ach-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg></span><span class="ach-tag">Старт</span></div>
+          <h3>2017</h3><p>Основание компании и первая сборка Star Platinum.</p>
+        </article>
+        <article class="ach" style="--c:#8e929e">
+          <span class="no" aria-hidden="true">02</span>
+          <div class="ach-top"><span class="ach-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9"/><path d="M12 8S10 3 7.5 3a2.5 2.5 0 0 0 0 5M12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span><span class="ach-tag">Бесплатно</span></div>
+          <h3>Silver Cherriot</h3><p>Версия для знакомства с интерфейсом и функциями системы.</p>
+        </article>
+        <article class="ach" style="--c:#d9a21b">
+          <span class="no" aria-hidden="true">03</span>
+          <div class="ach-top"><span class="ach-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 5 5 5-8 5 8 5-5-2 13H4z"/></svg></span><span class="ach-tag">Премиум</span></div>
+          <h3>Gold Expirience</h3><p>Полная версия: всё ПО и новейшие разработки.</p>
+        </article>
+        <article class="ach" style="--c:#d6368a">
+          <span class="no" aria-hidden="true">04</span>
+          <div class="ach-top"><span class="ach-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14c3 0 5 1.8 5 5"/></svg></span><span class="ach-tag"><i class="live"></i>Сейчас</span></div>
+          <h3>Сегодня</h3><p>15 специалистов и офис в Екатеринбурге.</p>
+        </article>
+      </div>
+      <div class="ach-bar" aria-hidden="true"><i></i><span>2017</span><span>сегодня</span></div>
+      </div>
     </div>
   </section>
 
@@ -953,6 +995,9 @@ if(hasGsap&&!reduce){
 function initAbout(){
   buildOrg();
   gsap.from('.org .person',{y:24,opacity:0,duration:.6,stagger:.05,ease:'back.out(1.6)',clearProps:'transform,opacity',scrollTrigger:{trigger:'.org',start:'top 80%'}});
+  gsap.from('.ach',{rotateX:-75,y:50,opacity:0,transformOrigin:'50% 0%',duration:1,stagger:.13,ease:'back.out(1.5)',clearProps:'transform,opacity',scrollTrigger:{trigger:'.ach-grid',start:'top 82%'}});
+  const bar=document.querySelector('.ach-bar');
+  if(bar)ScrollTrigger.create({trigger:'.ach-grid',start:'top 75%',end:'bottom 45%',scrub:true,onUpdate:s=>bar.style.setProperty('--p',s.progress)});
   const t=document.querySelector('.timeline');if(!t)return;
   ScrollTrigger.create({trigger:t,start:'top 75%',end:'bottom 55%',scrub:true,onUpdate:s=>t.style.setProperty('--p',s.progress)});
 }
@@ -1001,6 +1046,53 @@ function initAbout(){
   })();
 })();
 addEventListener('load',()=>{if(hasGsap)ScrollTrigger.refresh()});
+
+/* ===== random click effects ===== */
+(function(){
+  if(reduce)return;
+  const cv=document.createElement('canvas');cv.className='fx';cv.setAttribute('aria-hidden','true');document.body.append(cv);
+  const ctx=cv.getContext('2d');let W,H,P=[],R=[],run=false;const dpr=Math.min(devicePixelRatio||1,2);
+  const size=()=>{W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};size();addEventListener('resize',size);
+  const COLORS=['#8a3ffc','#c36bff','#f5c542','#ff6bb5','#3ddc84','#4fb3ff','#ffffff'];
+  const pick=a=>a[Math.random()*a.length|0],rnd=(a,b)=>a+Math.random()*(b-a);
+  const effects={
+    firework(x,y){for(let k=0;k<2;k++){const c=pick(COLORS.slice(0,6)),n=k?24:44;for(let i=0;i<n;i++){const a=i/n*Math.PI*2+rnd(-.05,.05),s=rnd(3,6.5)*(k?.55:1);P.push({t:'dot',x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,g:.07,dr:.965,life:rnd(55,85),age:0,r:rnd(1.6,2.8),c:k?'#fff6c8':c,trail:[]})}}},
+    confetti(x,y){for(let i=0;i<80;i++){const a=rnd(-Math.PI*.92,-Math.PI*.08),s=rnd(5,12);P.push({t:'rect',x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,g:.25,dr:.955,life:rnd(90,150),age:0,w:rnd(6,11),h:rnd(3,6),rot:rnd(0,6),vr:rnd(-.3,.3),c:pick(COLORS)})}},
+    shockwave(x,y){for(let i=0;i<3;i++)R.push({x,y,r:4,vr:5+i*1.8,life:48,age:-i*6,c:pick(COLORS.slice(0,6))});for(let i=0;i<18;i++){const a=i/18*6.283,s=rnd(5,9);P.push({t:'line',x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,g:0,dr:.88,life:26,age:0,c:'#f5c542'})}},
+    triangles(x,y){for(let i=0;i<24;i++){const a=rnd(-Math.PI,0),s=rnd(3,9);P.push({t:'tri',x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,g:.13,dr:.97,life:rnd(70,110),age:0,sz:rnd(7,16),rot:rnd(0,6),vr:rnd(-.15,.15),c:pick(['#8a3ffc','#c36bff','#f5c542'])})}},
+    bubbles(x,y){for(let i=0;i<28;i++)P.push({t:'bub',x:x+rnd(-24,24),y:y+rnd(-10,10),vx:rnd(-1.6,1.6),vy:rnd(-4.5,-1.2),g:-.03,dr:.99,life:rnd(70,120),age:0,r:rnd(4,14),ph:rnd(0,6),c:pick(COLORS.slice(0,6))})}
+  };
+  const names=Object.keys(effects);let last='';
+  function fire(x,y){let n;do n=pick(names);while(n===last);last=n;effects[n](x,y);if(!run){run=true;requestAnimationFrame(loop)}}
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    P=P.filter(p=>p.age++<p.life);R=R.filter(r=>r.age++<r.life);
+    for(const p of P){
+      p.vx*=p.dr;p.vy=p.vy*p.dr+p.g;p.x+=p.vx;p.y+=p.vy;ctx.globalAlpha=Math.max(1-p.age/p.life,0);
+      if(p.t==='dot'){p.trail.push([p.x,p.y]);if(p.trail.length>7)p.trail.shift();ctx.strokeStyle=p.c;ctx.lineWidth=p.r;ctx.lineCap='round';ctx.beginPath();p.trail.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.stroke();ctx.shadowBlur=14;ctx.shadowColor=p.c;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();ctx.shadowBlur=0}
+      else if(p.t==='rect'){p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.scale(1,Math.cos(p.age*.2));ctx.fillStyle=p.c;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore()}
+      else if(p.t==='line'){ctx.strokeStyle=p.c;ctx.lineWidth=2.5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*3,p.y-p.vy*3);ctx.stroke()}
+      else if(p.t==='tri'){p.rot+=p.vr;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.strokeStyle=p.c;ctx.lineWidth=3;ctx.lineJoin='round';ctx.beginPath();for(let i=0;i<3;i++){const a=-Math.PI/2+i*2.0944;ctx[i?'lineTo':'moveTo'](Math.cos(a)*p.sz,Math.sin(a)*p.sz)}ctx.closePath();ctx.stroke();ctx.restore()}
+      else if(p.t==='bub'){const xx=p.x+Math.sin(p.age*.12+p.ph)*4;ctx.strokeStyle=p.c;ctx.lineWidth=1.8;ctx.beginPath();ctx.arc(xx,p.y,p.r,0,7);ctx.stroke();ctx.fillStyle='#ffffffaa';ctx.beginPath();ctx.arc(xx-p.r*.35,p.y-p.r*.35,p.r*.25,0,7);ctx.fill()}
+    }
+    for(const r of R){if(r.age<0)continue;r.r+=r.vr;r.vr*=.96;const k=r.age/r.life;ctx.globalAlpha=Math.max(1-k,0);ctx.strokeStyle=r.c;ctx.lineWidth=4*(1-k)+.5;ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,7);ctx.stroke()}
+    ctx.globalAlpha=1;
+    if(P.length||R.length)requestAnimationFrame(loop);else{run=false;ctx.clearRect(0,0,W,H)}
+  }
+  document.addEventListener('click',e=>{
+    const b=e.target.closest('.btn,.chip,nav a,.burger,.brand');if(!b)return;
+    let x=e.clientX,y=e.clientY;if(!x&&!y){const r=b.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+    fire(x,y);
+  },true);
+})();
+
+/* achievements: tilt on hover */
+if(typeof VanillaTilt!=='undefined'&&matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches){
+  VanillaTilt.init(document.querySelectorAll('.ach'),{max:10,speed:600,scale:1.03,glare:true,'max-glare':.25,perspective:900});
+}
+
+/* recalc scroll triggers once generated graphics have changed layout */
+if(hasGsap){requestAnimationFrame(()=>ScrollTrigger.refresh());if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh());addEventListener('hashchange',()=>setTimeout(()=>ScrollTrigger.refresh(),120))}
 </script>
 </body>
 </html>
