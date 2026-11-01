@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Star Platinum — операционная система для творчества</title>
+<meta name="description" content="ООО «Star Platinum» — собственная операционная система с предустановленным ПО для дизайнеров, видеомонтажёров и авторов контента.">
+<style>
+:root{
+  --violet-900:oklch(28% .13 300);
+  --violet-700:oklch(42% .2 300);
+  --violet-500:oklch(55% .24 303);
+  --violet-100:oklch(95% .03 303);
+  --gold:oklch(82% .16 85);
+  --gold-deep:oklch(62% .15 80);
+  --bg:oklch(98.5% .006 300);
+  --ink:oklch(22% .04 300);
+  --muted:oklch(45% .03 300);
+  --card:#fff;
+  --line:oklch(90% .02 300);
+  --r:22px;
+  --shadow:0 18px 40px -18px oklch(35% .18 300/.35);
+  --fs-hero:clamp(2.4rem,1.6rem + 4.2vw,5rem);
+  --fs-h2:clamp(1.8rem,1.4rem + 2vw,3rem);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:1.05rem}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold-deep);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 2rem);margin-inline:auto}
+
+/* top info bar */
+.topbar{background:var(--violet-900);color:#fff;font-size:.9rem}
+.topbar .wrap{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;justify-content:space-between;padding:.55rem 0}
+.topbar .row{display:flex;flex-wrap:wrap;gap:.3rem 1.4rem}
+.topbar a{text-decoration:none}
+.topbar a:hover{color:var(--gold)}
+.topbar b{color:var(--gold);font-weight:600}
+
+/* header */
+header.site{position:sticky;top:0;z-index:50;background:#ffffffd9;backdrop-filter:blur(14px) saturate(180%);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.4rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-weight:700;font-size:1.2rem;color:var(--violet-700)}
+.brand img{width:76px;height:48px;object-fit:cover;object-position:center 30%}
+.brand small{display:block;font-weight:400;font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+nav ul{display:flex;gap:.3rem;list-style:none;padding:0}
+nav a{display:block;padding:.65rem 1.1rem;min-height:44px;border-radius:99px;text-decoration:none;font-weight:600;color:var(--muted);transition:.25s var(--ease)}
+nav a:hover{color:var(--violet-700);background:var(--violet-100)}
+nav a[aria-current=page]{background:var(--violet-700);color:#fff}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:46px;height:46px;font-size:1.4rem;cursor:pointer}
+
+/* pages */
+.page{display:none}
+.page.active{display:block;animation:pageIn .55s var(--ease)}
+@keyframes pageIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;min-height:48px;padding:.8rem 1.6rem;border-radius:99px;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:1rem;transition:transform .25s var(--ease),box-shadow .25s}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:scale(.96)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),oklch(75% .17 70));color:var(--violet-900);box-shadow:0 10px 24px -8px oklch(70% .17 80/.7)}
+.btn-ghost{background:#ffffff1f;color:#fff;border:1px solid #ffffff66}
+.btn-violet{background:var(--violet-700);color:#fff}
+.btn-outline{background:transparent;border:2px solid var(--violet-700);color:var(--violet-700)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;background:linear-gradient(120deg,var(--violet-900),var(--violet-700) 60%,oklch(48% .22 320));isolation:isolate}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);z-index:-1;animation:float 14s ease-in-out infinite alternate}
+.hero::before{width:480px;height:480px;background:oklch(70% .25 320/.55);right:-120px;top:-140px}
+.hero::after{width:380px;height:380px;background:oklch(82% .16 85/.35);left:-100px;bottom:-160px;animation-delay:-6s}
+@keyframes float{to{transform:translate(-50px,40px) scale(1.15)}}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;padding:5rem 0 6rem}
+.eyebrow{display:inline-block;padding:.35rem .9rem;border-radius:99px;background:#ffffff1f;border:1px solid #ffffff40;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.2rem}
+.hero h1{font-size:var(--fs-hero);line-height:1.04;letter-spacing:-.03em;font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--gold),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{margin:1.4rem 0 2rem;font-size:1.2rem;max-width:34em;color:#ffffffd9}
+.hero .actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.photo-frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 40px 70px -30px #000a;transform:rotate(2deg);transition:transform .5s var(--ease)}
+.photo-frame:hover{transform:rotate(0) scale(1.02)}
+.photo-frame img{width:100%;aspect-ratio:4/3.3;object-fit:cover}
+.badge-float{position:absolute;left:1rem;bottom:1rem;background:#ffffffee;color:var(--violet-900);padding:.7rem 1.1rem;border-radius:16px;backdrop-filter:blur(10px);font-weight:700;box-shadow:var(--shadow)}
+.badge-float span{display:block;font-weight:400;font-size:.8rem;color:var(--muted)}
+
+/* stats */
+.stats{margin-top:-3rem;position:relative;z-index:2}
+.stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.stat{background:var(--card);border-radius:var(--r);padding:1.4rem;text-align:center;box-shadow:var(--shadow);border:1px solid var(--line)}
+.stat b{display:block;font-size:2.4rem;line-height:1;color:var(--violet-700);font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.92rem}
+
+section.block{padding:5rem 0}
+.sec-head{max-width:40rem;margin-bottom:2.6rem}
+.sec-head h2{font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.02em;margin:.3rem 0 .8rem}
+.kicker{color:var(--violet-500);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.82rem}
+.sec-head p{color:var(--muted)}
+
+/* directions */
+.dir-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.dir{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.8rem;transition:.35s var(--ease);position:relative;overflow:hidden}
+.dir:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--violet-500)}
+.dir .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--violet-100);color:var(--violet-700);margin-bottom:1rem}
+.dir h3{margin-bottom:.4rem}
+.dir p{color:var(--muted);font-size:.97rem}
+
+/* audience band */
+.band{background:var(--violet-100)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.check{list-style:none;padding:0;display:grid;gap:.7rem;margin-top:1.4rem}
+.check li{display:flex;gap:.8rem;align-items:flex-start}
+.check li::before{content:"✓";flex:none;width:26px;height:26px;border-radius:50%;background:var(--violet-700);color:#fff;display:grid;place-items:center;font-size:.8rem;margin-top:.15rem}
+.desk{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+
+.cta{background:linear-gradient(120deg,var(--violet-900),var(--violet-700));color:#fff;border-radius:32px;padding:3rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+.cta h2{font-size:var(--fs-h2);line-height:1.1;max-width:18em}
+
+/* inner hero */
+.mini-hero{background:linear-gradient(120deg,var(--violet-900),var(--violet-700));color:#fff;padding:3.5rem 0}
+.mini-hero .wrap{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center}
+.mini-hero h1{font-size:clamp(2.2rem,1.5rem + 3.5vw,4rem);letter-spacing:-.03em;line-height:1.05}
+.mini-hero p{color:#ffffffd0;max-width:36em;margin-top:.8rem}
+.mini-hero .pic{width:min(300px,38vw);border-radius:22px;overflow:hidden;box-shadow:0 30px 50px -25px #000a;transform:rotate(-2deg)}
+.mini-hero .pic img{aspect-ratio:4/3;object-fit:cover;width:100%}
+
+/* catalog */
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.chip{min-height:44px;padding:.5rem 1.2rem;border-radius:99px;border:1px solid var(--line);background:#fff;font:inherit;font-weight:600;cursor:pointer;color:var(--muted);transition:.25s}
+.chip:hover{border-color:var(--violet-500);color:var(--violet-700)}
+.chip[aria-pressed=true]{background:var(--violet-700);border-color:var(--violet-700);color:#fff}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .35s,border-color .35s;transform-style:preserve-3d;will-change:transform}
+.zdog-wrap{position:absolute;right:-18px;top:-42px;width:150px;height:150px;pointer-events:auto;z-index:3;filter:drop-shadow(0 14px 18px #0006)}
+.photo-wrap{position:relative}
+@media (max-width:900px){.zdog-wrap{width:100px;height:100px;right:0;top:-50px}}
+.card:hover{box-shadow:var(--shadow);border-color:var(--violet-500)}
+.card .img{position:relative;aspect-ratio:16/10;overflow:hidden}
+.card .img svg{width:100%;height:100%;transition:transform .6s var(--ease)}
+.card:hover .img svg{transform:scale(1.07)}
+.tag{position:absolute;top:.8rem;left:.8rem;background:#ffffffee;color:var(--violet-900);font-size:.78rem;font-weight:700;padding:.25rem .7rem;border-radius:99px}
+.tag.hit{background:var(--gold)}
+.card .body{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.card h3{font-size:1.25rem}
+.card p{color:var(--muted);font-size:.96rem;flex:1}
+.card ul{padding-left:1.1rem;color:var(--muted);font-size:.9rem}
+.card .foot{display:flex;justify-content:space-between;align-items:center;margin-top:.6rem;gap:.6rem}
+.price{font-size:1.5rem;font-weight:800;color:var(--violet-700);line-height:1}
+.price small{display:block;font-size:.75rem;font-weight:500;color:var(--muted)}
+.price.free{color:oklch(52% .15 155)}
+.card.hidden{display:none}
+.note{margin-top:2rem;color:var(--muted);font-size:.92rem}
+
+/* about */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:1.4rem}
+.fact span{display:block;font-size:.8rem;color:var(--violet-500);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.fact b{display:block;margin-top:.3rem;font-size:1.15rem}
+.timeline{list-style:none;padding:0;border-left:3px solid var(--violet-100);margin-left:.6rem;display:grid;gap:1.6rem}
+.timeline li{position:relative;padding-left:1.8rem}
+.timeline li::before{content:"";position:absolute;left:-10px;top:.35rem;width:17px;height:17px;border-radius:50%;background:var(--gold);border:4px solid var(--violet-700)}
+.timeline b{color:var(--violet-700)}
+.zoomable{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);overflow-x:auto}
+.zoomable img{min-width:760px;width:100%}
+.contacts{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.map{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#fff;max-width:420px;justify-self:center}
+.ctable{display:grid;gap:1rem;margin-top:1.4rem}
+.ctable div{padding-bottom:.9rem;border-bottom:1px solid var(--line)}
+.ctable span{display:block;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ctable a{font-weight:600;font-size:1.15rem;text-decoration:none;color:var(--violet-700)}
+
+footer.site{background:var(--violet-900);color:#ffffffb8;padding:3rem 0 2rem;margin-top:2rem}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:2rem}
+footer h4{color:#fff;margin-bottom:.7rem}
+footer a{text-decoration:none}
+footer a:hover{color:var(--gold)}
+footer ul{list-style:none;padding:0;display:grid;gap:.3rem}
+footer .copy{border-top:1px solid #ffffff22;margin-top:2rem;padding-top:1.2rem;font-size:.85rem}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.no-io .reveal{opacity:1;transform:none}
+
+
+/* ===== WOW layer ===== */
+.progress{position:fixed;left:0;top:0;height:4px;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--violet-500),var(--gold));z-index:200}
+.cursor-ring,.cursor-dot{position:fixed;left:0;top:0;pointer-events:none;z-index:300;border-radius:50%;display:none}
+.has-cursor .cursor-ring,.has-cursor .cursor-dot{display:block}
+.cursor-ring{width:42px;height:42px;border:2px solid var(--violet-500);margin:-21px 0 0 -21px;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),background .25s,border-color .25s}
+.cursor-ring.big{width:76px;height:76px;margin:-38px 0 0 -38px;background:oklch(70% .2 303/.18);border-color:var(--gold-deep)}
+.cursor-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--gold-deep)}
+.curtain{position:fixed;inset:0;z-index:250;background:linear-gradient(135deg,var(--violet-900),var(--violet-500));display:grid;place-items:center;transform:translateY(101%);pointer-events:none}
+.curtain img{width:220px;filter:drop-shadow(0 10px 30px #0008);border-radius:16px;background:#fff;padding:.4rem}
+.hero-gl{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.hero h1 .wi{display:inline-block}
+.hero h1 em .wi{background:linear-gradient(90deg,var(--gold),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.marquee{overflow:hidden;background:var(--ink);color:#fff;padding:1.1rem 0;margin-top:4rem;transform:rotate(-1.2deg);box-shadow:0 20px 40px -20px #0006}
+.marquee .track{display:flex;width:max-content;animation:marq 28s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{font-size:clamp(1.4rem,1rem + 2vw,2.6rem);font-weight:800;letter-spacing:-.02em;padding:0 1.4rem;white-space:nowrap;-webkit-text-stroke:1px #ffffffaa;color:transparent;transition:.3s}
+.marquee span:nth-child(even){color:var(--gold);-webkit-text-stroke:0}
+.marquee span:hover{color:#fff}
+@keyframes marq{to{transform:translateX(-50%)}}
+.dir,.card{position:relative}
+.dir::after,.card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),oklch(70% .2 303/.2),transparent 60%);opacity:0;transition:opacity .3s}
+.dir:hover::after,.card:hover::after{opacity:1}
+.hscroll{background:radial-gradient(circle at 80% 0,oklch(38% .2 305),var(--violet-900) 60%);color:#fff;overflow:hidden;margin-top:5rem}
+.hs-pin{padding:4rem 0}
+.hs-head h2{font-size:var(--fs-h2);line-height:1.1;letter-spacing:-.02em;margin:.3rem 0 1rem;max-width:16em}
+.hs-head .kicker{color:var(--gold)}
+.hs-track{display:flex;gap:1.4rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:2rem 1rem 1rem}
+.hs-panel{flex:0 0 min(84vw,440px);scroll-snap-align:center;background:#ffffff12;border:1px solid #ffffff2a;border-radius:28px;overflow:hidden;backdrop-filter:blur(10px)}
+.hs-panel .art{aspect-ratio:16/10;overflow:hidden}
+.hs-panel .art svg{width:100%;height:100%}
+.hs-panel .tx{padding:1.4rem 1.6rem 1.8rem}
+.hs-panel .num{font-size:3.4rem;font-weight:800;line-height:1;background:linear-gradient(var(--gold),transparent);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hs-panel h3{font-size:1.5rem;margin:.2rem 0 .4rem}
+.hs-panel p{color:#ffffffbb;font-size:.98rem}
+.hs-progress{height:3px;background:#ffffff22;margin:0 1rem;border-radius:3px;overflow:hidden;display:none}
+.hs-progress i{display:block;height:100%;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.hscroll.pinned .hs-track{overflow:visible;padding-left:max(1rem,calc((100vw - 1180px)/2));padding-right:10vw;scroll-snap-type:none;width:max-content}
+.hscroll.pinned .hs-pin{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:2rem 0}
+.hscroll.pinned .hs-panel{flex:0 0 min(38vw,520px)}
+.hscroll.pinned .hs-progress{display:block;width:min(1180px,100% - 2rem);margin-inline:auto}
+.cmp-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.cmp{position:relative;border-radius:26px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:420/262;--pos:50%;user-select:none}
+.cmp>div{position:absolute;inset:0}
+.cmp svg{width:100%;height:100%}
+.cmp .silver{clip-path:inset(0 calc(100% - var(--pos)) 0 0);filter:grayscale(.95) brightness(1.08)}
+.cmp .bar{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;background:#fff;box-shadow:0 0 20px #0008;transform:translateX(-50%);pointer-events:none}
+.cmp .bar::after{content:"\21C6";position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;background:#fff;color:var(--violet-700);display:grid;place-items:center;transform:translate(-50%,-50%);font-weight:800;box-shadow:var(--shadow)}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.cmp .lbl{position:absolute;top:1rem;padding:.3rem .8rem;border-radius:99px;font-weight:700;font-size:.85rem;background:#000a;color:#fff;z-index:2}
+.cmp .lbl.l{left:1rem}.cmp .lbl.r{right:1rem;background:var(--gold);color:var(--violet-900)}
+.vs{width:100%;border-collapse:collapse;margin-top:1.2rem;font-size:.95rem}
+.vs th,.vs td{padding:.55rem .4rem;border-bottom:1px solid var(--line);text-align:center}
+.vs th:first-child,.vs td:first-child{text-align:left}
+.vs th{color:var(--violet-700)}
+.vs .y{color:oklch(52% .15 155);font-weight:800}.vs .n{color:var(--muted)}
+.timeline{position:relative}
+.timeline::after{content:"";position:absolute;left:-3px;top:0;width:3px;height:100%;background:linear-gradient(var(--violet-700),var(--gold));transform:scaleY(var(--p,0));transform-origin:top}
+.cta{position:relative;overflow:hidden}
+.cta .zdog-wrap{position:static;width:170px;height:170px;filter:drop-shadow(0 14px 18px #0007)}
+.wordmark{font-size:clamp(3rem,2rem + 9vw,9rem);font-weight:900;letter-spacing:-.04em;line-height:.9;background:linear-gradient(90deg,var(--violet-500),var(--gold),var(--violet-500));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite;margin-bottom:1.5rem}
+@keyframes shine{to{background-position:-200% 0}}
+@media (max-width:900px){.cmp-wrap{grid-template-columns:1fr}.marquee{margin-top:3rem}}
+@media (hover:none){.cursor-ring,.cursor-dot{display:none!important}}
+
+/* ===== header v2 ===== */
+.topbar{background:linear-gradient(100deg,var(--violet-900),oklch(36% .18 290),oklch(33% .17 325),var(--violet-900));background-size:300% 100%;animation:aur 14s ease-in-out infinite alternate}
+@keyframes aur{to{background-position:100% 0}}
+.tb-item{display:inline-flex;align-items:center;gap:.45rem}
+.tb-item svg{width:15px;height:15px;color:var(--gold);flex:none}
+.tb-name{color:var(--gold);font-weight:700}
+.pulse{width:8px;height:8px;border-radius:50%;background:#3ddc84;animation:pul 2s infinite;flex:none}
+.pulse.off{background:#ff7a7a;animation:none}
+@keyframes pul{0%{box-shadow:0 0 0 0 #3ddc8499}70%,100%{box-shadow:0 0 0 9px #3ddc8400}}
+header.site{transition:background .4s,border-color .4s,backdrop-filter .4s}
+header.site .wrap{transition:margin .45s var(--ease),padding .45s var(--ease),background .45s,border-radius .45s,box-shadow .45s,width .45s var(--ease);padding:.55rem 0}
+header.site.scrolled{background:transparent;border-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+header.site.scrolled .wrap{margin-top:.6rem;padding:.35rem .45rem .35rem .9rem;background:#ffffffe8;backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border-radius:99px;box-shadow:0 18px 40px -18px oklch(35% .18 300/.5),0 0 0 1px oklch(90% .02 300);width:min(1100px,100% - 1.5rem)}
+.hdr-line{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--violet-500),var(--gold),var(--violet-500),transparent);background-size:200% 100%;animation:shine 4s linear infinite;transition:opacity .4s}
+.scrolled .hdr-line{opacity:0}
+.logo-tile{position:relative;display:block;width:64px;height:44px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 16px -6px oklch(42% .2 300/.55);transition:transform .4s var(--ease)}
+.brand:hover .logo-tile{transform:rotate(-6deg) scale(1.06)}
+.brand .logo-tile img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.logo-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#ffffffcc 50%,transparent 70%);transform:translateX(-120%);animation:sweep 4.5s ease-in-out infinite}
+@keyframes sweep{55%,100%{transform:translateX(120%)}}
+.brand-name{display:block;background:linear-gradient(90deg,var(--violet-700),var(--violet-500),var(--gold-deep),var(--violet-700));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800;font-size:1.25rem;letter-spacing:-.01em;animation:shine 7s linear infinite}
+.brand small{font-size:.78rem}
+.brand .rot{display:inline-block;color:var(--violet-500);font-weight:700;transition:transform .35s var(--ease),opacity .35s}
+.brand .rot.out{opacity:0;transform:translateY(-8px)}
+nav ul{position:relative}
+.nav-ind{position:absolute;top:0;left:0;height:100%;width:0;border-radius:99px;background:linear-gradient(135deg,var(--violet-700),var(--violet-500));box-shadow:0 8px 20px -8px oklch(42% .2 300/.8);transition:left .45s var(--ease),width .45s var(--ease);pointer-events:none}
+nav li{position:relative}
+nav a{position:relative;z-index:1}
+nav a:hover{background:transparent}
+nav a[aria-current=page]{background:transparent;color:var(--muted)}
+nav a.lit{color:#fff!important}
+.hdr-right{display:flex;align-items:center;gap:.6rem}
+.hdr-cta{min-height:42px;padding:.5rem 1.1rem;font-size:.9rem}
+/* hero device */
+.photo-wrap{position:relative;padding:2rem 1rem}
+.device{position:relative;border-radius:22px;padding:12px 12px 14px;background:linear-gradient(160deg,#3a2363,#150a2a);box-shadow:0 50px 80px -30px #000c,inset 0 1px 0 #ffffff30;transform:perspective(1400px) rotateY(-14deg) rotateX(6deg);transition:transform .8s var(--ease)}
+.device:hover{transform:perspective(1400px) rotateY(0) rotateX(0)}
+.device .screen{border-radius:12px;overflow:hidden;aspect-ratio:420/262}
+.device .screen svg{width:100%;height:100%}
+.device::after{content:"";position:absolute;left:8%;right:8%;bottom:-16px;height:16px;border-radius:0 0 18px 18px;background:linear-gradient(#2a1846,#0d0619);box-shadow:0 20px 30px -10px #000a}
+.float{position:absolute;background:#ffffffee;color:var(--violet-900);border-radius:16px;padding:.7rem .9rem;box-shadow:0 20px 40px -16px #000a;font-size:.82rem;font-weight:700;backdrop-filter:blur(10px);animation:bob 6s ease-in-out infinite;z-index:2}
+.float small{display:block;font-weight:500;color:var(--muted);font-size:.72rem}
+.f1{left:-1.2rem;bottom:.2rem;width:200px}
+.f2{right:-.6rem;top:-.2rem;animation-delay:-2s}
+.f3{right:2rem;bottom:-1.4rem;animation-delay:-4s;display:flex;align-items:center;gap:.55rem}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.f1 .bar{height:6px;border-radius:6px;background:var(--violet-100);margin-top:.5rem;overflow:hidden}
+.f1 .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet-500),var(--gold));animation:load 4s ease-in-out infinite}
+@keyframes load{80%,100%{width:100%}}
+.f2 .sw{display:flex;gap:.3rem;margin-top:.4rem}
+.f2 .sw i{width:20px;height:20px;border-radius:6px;animation:pop 2.4s ease-in-out infinite}
+@keyframes pop{50%{transform:translateY(-4px) scale(1.12)}}
+.f3 .ok{width:28px;height:28px;border-radius:50%;background:oklch(60% .15 155);color:#fff;display:grid;place-items:center;flex:none}
+.mini-hero .pic svg{width:100%;aspect-ratio:4/3;height:auto}
+/* org chart */
+.org{background:#fff;border:1px solid var(--line);border-radius:28px;padding:2rem 1rem 2.2rem;box-shadow:var(--shadow)}
+.org-col{display:flex;flex-direction:column;align-items:center}
+.vline{display:block;width:2px;height:26px;background:oklch(80% .06 300)}
+.person{display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid var(--line);border-top:3px solid var(--c,var(--violet-500));border-radius:14px;padding:.5rem .65rem;text-align:left;transition:box-shadow .3s,border-color .3s;width:100%}
+.person:hover{box-shadow:0 14px 26px -14px oklch(35% .18 300/.55);border-color:var(--c)}
+.person svg{width:42px;height:42px;flex:none;border-radius:50%}
+.person b{display:block;font-size:.84rem;line-height:1.2}
+.person span{display:block;font-size:.72rem;color:var(--muted);line-height:1.25}
+.person.big{width:auto;min-width:270px;padding:.7rem 1.1rem;border-top-width:4px}
+.person.big svg{width:56px;height:56px}
+.person.big b{font-size:1rem}.person.big span{font-size:.8rem}
+.org-depts{display:grid;grid-template-columns:repeat(6,1fr)}
+.dept{position:relative;padding:30px .3rem 0;transition:opacity .3s}
+.dept::before{content:"";position:absolute;top:0;left:50%;width:2px;height:24px;background:oklch(80% .06 300)}
+.dept::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:oklch(80% .06 300)}
+.dept:first-child::after{left:50%}.dept:last-child::after{right:50%}
+.dept-tag{display:block;text-align:center;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--c);margin-bottom:.35rem}
+.dept-members{margin:.6rem 0 0 1rem;padding-left:.8rem;border-left:2px solid oklch(80% .06 300);display:grid;gap:.55rem}
+.dept-members .person{position:relative}
+.dept-members .person::before{content:"";position:absolute;left:calc(-.8rem - 1px);top:50%;width:.8rem;height:2px;background:oklch(80% .06 300)}
+@media (hover:hover){.org-depts:hover .dept{opacity:.4}.org-depts .dept:hover{opacity:1}}
+.org-legend{display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;justify-content:center;margin-top:1.4rem;font-size:.86rem;color:var(--muted)}
+.org-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.4rem;background:var(--c)}
+/* map */
+.map{max-width:none;width:100%;justify-self:stretch;position:relative}
+.map iframe{display:block;width:100%;aspect-ratio:4/3;height:auto;border:0}
+.map-badge{padding:.75rem 1.1rem;font-size:.9rem;border-top:1px solid var(--line);background:#fff}
+.map-badge b{color:var(--violet-700)}
+.map-links{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem}
+@media (max-width:1100px){.org-depts{grid-template-columns:repeat(3,1fr);row-gap:1.6rem}.dept::before,.dept::after{display:none}.dept{padding-top:0}}
+@media (max-width:900px){
+  .nav-ind{display:none}
+  nav a[aria-current=page]{background:var(--violet-700);color:#fff}
+  nav a.lit{color:inherit!important}
+  nav a[aria-current=page].lit{color:#fff!important}
+  .f1{left:0}.f2{right:0}.f3{right:.5rem}
+  header.site.scrolled .wrap{border-radius:22px}
+}
+@media (max-width:600px){.org-depts{grid-template-columns:1fr}.tb-addr{display:none}.hdr-cta{display:none}.person.big{min-width:0;width:100%}}
+@media (max-width:900px){
+  .hero .wrap,.split,.contacts,.mini-hero .wrap{grid-template-columns:1fr}
+  .mini-hero .pic{display:none}
+  .dir-grid{grid-template-columns:1fr}
+  .stats .grid{grid-template-columns:repeat(2,1fr)}
+  footer .cols{grid-template-columns:1fr}
+  .burger{display:block}
+  nav{position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);display:none;padding:.6rem 1rem}
+  nav.open{display:block}
+  nav ul{flex-direction:column}
+  header.site .wrap{position:relative}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div><div class="cursor-dot" aria-hidden="true"></div>
+<div class="curtain" aria-hidden="true"><img src="img/logo.png" alt=""></div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="row">
+      <span class="tb-name">ООО Компания «Star Platinum»</span>
+      <a class="tb-item" href="tel:+79030811704"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>+7 (903) 081-17-04</a>
+      <a class="tb-item" href="mailto:info@star-platinum.ru"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>info@star-platinum.ru</a>
+    </div>
+    <div class="row">
+      <span class="tb-item"><i class="pulse"></i><span id="openText">Пн–Пт 9:00–18:00</span></span>
+      <span class="tb-item tb-addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>г. Екатеринбург, ул. Академика Парина, 40/2</span>
+    </div>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Star Platinum — на главную">
+      <span class="logo-tile"><img src="img/logo.png" alt="Логотип Star Platinum"></span>
+      <span><span class="brand-name">Star Platinum</span><small>ОС для <span class="rot">дизайнеров</span></small></span>
+    </a>
+    <nav id="menu" aria-label="Основное меню">
+      <ul>
+        <li class="nav-ind" aria-hidden="true"></li>
+        <li><a href="#home" data-page="home">Главная</a></li>
+        <li><a href="#catalog" data-page="catalog">Каталог</a></li>
+        <li><a href="#about" data-page="about">О нас</a></li>
+      </ul>
+    </nav>
+    <div class="hdr-right">
+      <a class="btn btn-gold hdr-cta" href="#catalog">Скачать Silver</a>
+      <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">☰</button>
+    </div>
+  </div>
+  <div class="hdr-line" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+
+<!-- ============ HOME ============ -->
+<div class="page" id="page-home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">С 2017 года · Екатеринбург</span>
+        <h1>Операционная система, <em>созданная для творцов</em></h1>
+        <p class="lead">Star Platinum — собственная ОС с уже установленными редакторами графики, видео и сайтов. Включили — и сразу творите, без поиска и покупки дополнительных программ.</p>
+        <div class="actions">
+          <a class="btn btn-gold" href="#catalog">Смотреть каталог →</a>
+          <a class="btn btn-ghost" href="#about">О компании</a>
+        </div>
+      </div>
+      <div class="photo-wrap">
+        <div class="device"><div class="screen" data-art="gold"></div></div>
+        <div class="float f1">Рендер видео 4K<small>Video Pro · предустановлено</small><div class="bar"><i></i></div></div>
+        <div class="float f2">Палитра бренда<div class="sw"><i style="background:#7a2fd0"></i><i style="background:#c36bff;animation-delay:.3s"></i><i style="background:#f5c542;animation-delay:.6s"></i><i style="background:#1c0b38;animation-delay:.9s"></i></div></div>
+        <div class="float f3"><span class="ok">✓</span><span>logo.svg<small>сохранено в Designer Studio</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="wrap grid">
+      <div class="stat reveal"><b data-count="2017" data-plain>0</b><span>год основания</span></div>
+      <div class="stat reveal"><b data-count="15">0</b><span>сотрудников в команде</span></div>
+      <div class="stat reveal"><b data-count="2">0</b><span>версии ОС: Silver и Gold</span></div>
+      <div class="stat reveal"><b data-count="40" data-suffix="+">0</b><span>программ «из коробки»</span></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track"><span>Дизайн</span><span>Видеомонтаж</span><span>Фото</span><span>Веб</span><span>Логотипы</span><span>Контент</span><span>Творчество</span><span>Star Platinum</span><span>Дизайн</span><span>Видеомонтаж</span><span>Фото</span><span>Веб</span><span>Логотипы</span><span>Контент</span><span>Творчество</span><span>Star Platinum</span></div></div>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">Направления деятельности</span>
+        <h2>Чем занимается Star Platinum</h2>
+        <p>Мы разрабатываем и продаём собственную операционную систему для людей, которые создают контент в интернете.</p>
+      </div>
+      <div class="dir-grid">
+        <article class="dir reveal">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+          <h3>Разработка ОС</h3>
+          <p>Собственное ядро, интерфейс и сборка системы. Команда из 15 специалистов постоянно повышает квалификацию и выпускает обновления.</p>
+        </article>
+        <article class="dir reveal">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18zM2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></div>
+          <h3>ПО для дизайна и веб</h3>
+          <p>Предустановленные редакторы для создания логотипов, сайтов и графических материалов — профессиональные инструменты веб-дизайнера.</p>
+        </article>
+        <article class="dir reveal">
+          <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></svg></div>
+          <h3>Видео и фото</h3>
+          <p>Монтаж и обработка видео, ретушь и работа с фотографиями: множество редакторов уже внутри системы.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block band">
+    <div class="wrap split">
+      <div class="reveal">
+        <span class="kicker">Для кого</span>
+        <h2 style="font-size:var(--fs-h2);line-height:1.1;margin:.3rem 0 1rem">Всё нужное — уже предустановлено</h2>
+        <p>Наша целевая аудитория — практически все, кто занимается творчеством и создаёт контент в интернете. При установке Star Platinum не нужно покупать и ставить дополнительные программы.</p>
+        <ul class="check">
+          <li>Веб-дизайнеры — логотипы, макеты, вёрстка сайтов</li>
+          <li>Видеомонтажёры — нелинейный монтаж и цветокоррекция</li>
+          <li>Фотографы — обработка и каталогизация снимков</li>
+          <li>Блогеры и авторы контента — всё для публикации</li>
+        </ul>
+        <p style="margin-top:1.6rem"><a class="btn btn-violet" href="#catalog">Выбрать версию</a></p>
+      </div>
+      <div class="desk reveal" data-svg="desktop"></div>
+    </div>
+  </section>
+
+  <section class="hscroll" id="hs">
+    <div class="hs-pin">
+      <div class="wrap hs-head"><span class="kicker">Что внутри ОС</span><h2>Листайте — и смотрите, что уже установлено</h2></div>
+      <div class="hs-track"><article class="hs-panel"><div class="art" data-art="design"></div><div class="tx"><div class="num">01</div><h3>Дизайн и логотипы</h3><p>Векторный редактор, макеты сайтов и шрифты — всё для веб-дизайнера уже в системе.</p></div></article><article class="hs-panel"><div class="art" data-art="video"></div><div class="tx"><div class="num">02</div><h3>Видеомонтаж</h3><p>Нелинейный монтаж, цветокоррекция и звук. Ставьте и монтируйте.</p></div></article><article class="hs-panel"><div class="art" data-art="photo"></div><div class="tx"><div class="num">03</div><h3>Фото и ретушь</h3><p>Обработка RAW, маски, пакетный экспорт и удобная каталогизация.</p></div></article><article class="hs-panel"><div class="art" data-art="os"></div><div class="tx"><div class="num">04</div><h3>Веб и публикации</h3><p>Редакторы сайтов и инструменты публикации контента в интернете.</p></div></article></div>
+      <div class="hs-progress" style="margin-top:1.5rem"><i></i></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap cmp-wrap">
+      <div class="reveal">
+        <div class="cmp" id="cmp">
+          <div class="gold" data-art="gold"></div><div class="silver" data-art="silver"></div>
+          <span class="lbl l">Silver Cherriot</span><span class="lbl r">Gold Expirience</span>
+          <div class="bar"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Сравнить Silver Cherriot и Gold Expirience">
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="kicker">Сравнение</span>
+        <h2 style="font-size:var(--fs-h2);line-height:1.1;margin:.3rem 0 .6rem">Silver или Gold?</h2>
+        <p style="color:var(--muted)">Двигайте ползунок: слева — бесплатная версия, справа — полная.</p>
+        <table class="vs"><thead><tr><th></th><th>Silver</th><th>Gold</th></tr></thead><tbody>
+          <tr><td>Фирменный интерфейс</td><td class="y">✓</td><td class="y">✓</td></tr>
+          <tr><td>Базовые редакторы</td><td class="y">✓</td><td class="y">✓</td></tr>
+          <tr><td>Все 40+ программ</td><td class="n">—</td><td class="y">✓</td></tr>
+          <tr><td>Новейшие разработки</td><td class="n">—</td><td class="y">✓</td></tr>
+          <tr><td>Техподдержка</td><td class="n">—</td><td class="y">✓</td></tr>
+          <tr><td>Цена</td><td>0 ₽</td><td>5 990 ₽</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="cta reveal">
+        <h2>Начните с бесплатной Silver Cherriot</h2>
+        <canvas class="zdog-wrap" width="340" height="340" aria-hidden="true"></canvas>
+        <a class="btn btn-gold" href="#catalog">Скачать и попробовать</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CATALOG ============ -->
+<div class="page" id="page-catalog">
+  <section class="mini-hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Каталог</span>
+        <h1>Версии ОС и дополнения</h1>
+        <p>От бесплатной пробной версии до полной редакции со всем ПО и корпоративными лицензиями.</p>
+      </div>
+      <div class="pic" data-art="boxes"></div>
+    </div>
+  </section>
+  <section class="block" style="padding-top:3rem">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Фильтр каталога">
+        <button class="chip" data-f="all" aria-pressed="true">Все</button>
+        <button class="chip" data-f="os" aria-pressed="false">Операционные системы</button>
+        <button class="chip" data-f="soft" aria-pressed="false">Наборы ПО</button>
+        <button class="chip" data-f="service" aria-pressed="false">Услуги</button>
+      </div>
+      <div class="cat-grid" id="catGrid"></div>
+      <p class="note">* Цены указаны в рублях, ориентировочные. Для организаций действуют скидки при заказе от 5 лицензий.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="page" id="page-about">
+  <section class="mini-hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">О компании</span>
+        <h1>Команда, которая делает ОС для творчества</h1>
+        <p>ООО Компания «Star Platinum» — разработчик и продавец собственной операционной системы с качественным ПО для творческих профессий.</p>
+      </div>
+      <div class="pic" data-art="team"></div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-bottom:2rem">
+    <div class="wrap">
+      <div class="facts">
+        <div class="fact reveal"><span>Название</span><b>Star Platinum</b></div>
+        <div class="fact reveal"><span>Юр. форма</span><b>ООО Компания «Star Platinum»</b></div>
+        <div class="fact reveal"><span>Работаем с</span><b>2017 года</b></div>
+        <div class="fact reveal"><span>Генеральный директор</span><b>Леванов Данил</b></div>
+        <div class="fact reveal"><span>Сотрудников</span><b>15 человек</b></div>
+        <div class="fact reveal"><span>Деятельность</span><b>Разработка и продажа ОС</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:2rem">
+    <div class="wrap split">
+      <div class="reveal">
+        <span class="kicker">Кто мы</span>
+        <h2 style="font-size:var(--fs-h2);line-height:1.1;margin:.3rem 0 1rem">Дружный коллектив специалистов</h2>
+        <p>Свою деятельность компания начала в 2017 году и уже зарекомендовала себя как поставщик качественного ПО для людей творческих профессий. Каждый из 15 сотрудников вносит вклад в общее дело, а специалисты постоянно повышают квалификацию. Организацию возглавляет генеральный директор Леванов Д. А.</p>
+        <p style="margin-top:1rem">Существует две версии системы: бесплатная <b>Silver Cherriot</b> для знакомства с интерфейсом и золотая <b>Gold Expirience</b> — со всеми возможностями и новейшими разработками, относящаяся к среднему ценовому сегменту.</p>
+      </div>
+      <ul class="timeline reveal">
+        <li><b>2017</b><br>Основание компании, первая сборка Star Platinum.</li>
+        <li><b>Silver Cherriot</b><br>Бесплатная версия для знакомства с системой.</li>
+        <li><b>Gold Expirience</b><br>Полная версия со всем ПО и новейшими разработками.</li>
+        <li><b>Сегодня</b><br>15 специалистов, офис в Екатеринбурге.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block band">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">Структура</span>
+        <h2>Организационная структура</h2>
+        <p>15 сотрудников: генеральный директор Леванов Данил, исполнительный директор Носов Анатолий и шесть отделов. Наведите на отдел, чтобы выделить его.</p>
+      </div>
+      <div class="org" id="org" role="img" aria-label="Организационная структура: 15 сотрудников, 6 отделов"></div>
+      <div class="org-legend" id="orgLegend"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap contacts">
+      <div class="reveal">
+        <span class="kicker">Контакты</span>
+        <h2 style="font-size:var(--fs-h2);line-height:1.1;margin:.3rem 0 .6rem">Как нас найти</h2>
+        <div class="ctable">
+          <div><span>Адрес</span>г. Екатеринбург, ул. Академика Парина, 40/2 (главный вход)</div>
+          <div><span>Телефон</span><a href="tel:+79030811704">+7 (903) 081-17-04</a></div>
+          <div><span>E-mail</span><a href="mailto:info@star-platinum.ru">info@star-platinum.ru</a></div>
+          <div><span>Режим работы</span>Пн–Пт 9:00–18:00</div>
+        </div>
+        <div class="map-links">
+          <a class="btn btn-violet" href="https://yandex.ru/maps/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0%20%D0%9F%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2040/2" target="_blank" rel="noopener">Яндекс Карты</a>
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0%20%D0%9F%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2040/2" target="_blank" rel="noopener">Google Maps</a>
+        </div>
+      </div>
+      <figure class="map reveal">
+        <iframe src="https://yandex.ru/map-widget/v1/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%BA%D0%B0%20%D0%9F%D0%B0%D1%80%D0%B8%D0%BD%D0%B0%2C%2040/2&amp;z=16" title="Яндекс Карта: Екатеринбург, улица Академика Парина, 40/2" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <figcaption class="map-badge"><b>Star Platinum</b> · главный вход</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="wordmark" aria-hidden="true">Star Platinum</div>
+    <div class="cols">
+      <div><h4>ООО Компания «Star Platinum»</h4><p>Операционные системы с предустановленным ПО для людей творческих профессий. Работаем с 2017 года.</p></div>
+      <div><h4>Разделы</h4><ul><li><a href="#home">Главная</a></li><li><a href="#catalog">Каталог</a></li><li><a href="#about">О нас</a></li></ul></div>
+      <div><h4>Контакты</h4><ul><li><a href="tel:+79030811704">+7 (903) 081-17-04</a></li><li><a href="mailto:info@star-platinum.ru">info@star-platinum.ru</a></li><li>г. Екатеринбург, ул. Академика Парина, 40/2</li><li>Пн–Пт 9:00–18:00</li></ul></div>
+    </div>
+    <div class="copy">© 2017–2026 Star Platinum. Учебный проект.</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script src="https://unpkg.com/zdog@1.1.3/dist/zdog.dist.min.js"></script>
+<script>
+/* ---------- SVG "photos" generated for catalog ---------- */
+function screenSVG(c1,c2,accent,opts={}){
+  const id='g'+Math.random().toString(36).slice(2,7);
+  const win=(x,y,w,h,t)=>`<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#fff" opacity=".93"/><rect x="${x}" y="${y}" width="${w}" height="20" rx="10" fill="${accent}" opacity=".9"/><circle cx="${x+12}" cy="${y+10}" r="3.5" fill="#fff"/><circle cx="${x+24}" cy="${y+10}" r="3.5" fill="#fff" opacity=".7"/>${t}</g>`;
+  const timeline=`<rect x="0" y="0" width="100%" height="0"/>`;
+  const wins=opts.kind==='video'
+   ? win(60,50,300,170,`<rect x="74" y="80" width="272" height="90" rx="6" fill="${c1}"/><polygon points="190,100 190,150 232,125" fill="#fff"/><rect x="74" y="182" width="272" height="8" rx="4" fill="#ddd"/><rect x="74" y="182" width="120" height="8" rx="4" fill="${accent}"/><rect x="74" y="198" width="60" height="10" rx="3" fill="${c2}"/><rect x="140" y="198" width="90" height="10" rx="3" fill="${accent}"/><rect x="236" y="198" width="50" height="10" rx="3" fill="${c1}"/>`)
+   : opts.kind==='design'
+   ? win(60,46,300,180,`<circle cx="150" cy="140" r="42" fill="${c1}"/><rect x="170" y="100" width="90" height="90" rx="14" fill="${c2}" opacity=".9"/><polygon points="250,200 300,120 330,200" fill="${accent}" opacity=".9"/><rect x="74" y="76" width="60" height="8" rx="4" fill="#ccc"/>`)
+   : opts.kind==='photo'
+   ? win(60,46,300,180,`<rect x="74" y="76" width="272" height="110" rx="6" fill="${c2}"/><polygon points="74,186 150,120 210,160 260,110 346,186" fill="${c1}"/><circle cx="300" cy="102" r="14" fill="#fff"/><rect x="74" y="196" width="40" height="18" rx="4" fill="${accent}"/><rect x="120" y="196" width="40" height="18" rx="4" fill="#ddd"/><rect x="166" y="196" width="40" height="18" rx="4" fill="#ddd"/>`)
+   : opts.kind==='service'
+   ? win(110,40,200,190,`<circle cx="210" cy="108" r="26" fill="${c1}"/><path d="M165 190c0-30 20-44 45-44s45 14 45 44z" fill="${c1}"/><rect x="150" y="196" width="120" height="8" rx="4" fill="#ddd"/><rect x="170" y="210" width="80" height="8" rx="4" fill="${accent}"/>`)
+   : win(40,58,190,150,`<rect x="54" y="88" width="60" height="50" rx="8" fill="${c1}"/><rect x="122" y="88" width="94" height="22" rx="6" fill="${c2}"/><rect x="122" y="116" width="94" height="22" rx="6" fill="#ddd"/><rect x="54" y="146" width="162" height="48" rx="8" fill="${accent}" opacity=".35"/>`)
+     + win(200,100,170,120,`<circle cx="285" cy="165" r="30" fill="${c2}"/><rect x="222" y="132" width="40" height="8" rx="4" fill="#ccc"/>`);
+  return `<svg viewBox="0 0 420 262" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Иллюстрация продукта">
+  <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>
+  <rect width="420" height="262" fill="url(#${id})"/>
+  <circle cx="380" cy="30" r="90" fill="#fff" opacity=".1"/><circle cx="20" cy="260" r="80" fill="#fff" opacity=".1"/>
+  ${wins}
+  <rect x="0" y="244" width="420" height="18" fill="#000" opacity=".25"/>
+  <g fill="#fff" opacity=".85"><circle cx="16" cy="253" r="5"/><rect x="34" y="249" width="24" height="8" rx="3"/><rect x="64" y="249" width="24" height="8" rx="3"/><rect x="370" y="249" width="34" height="8" rx="3"/></g>
+  </svg>`;
+}
+const fmt=n=>n===0?'Бесплатно':n.toLocaleString('ru-RU')+' ₽';
+const products=[
+ {cat:'os',tag:'Бесплатно',name:'Silver Cherriot',desc:'Бесплатная версия Star Platinum: опробуйте интерфейс и часть функций продвинутой ОС перед покупкой.',list:['Фирменный интерфейс','Базовые графические редакторы','Обновления безопасности'],price:0,unit:'навсегда',art:['oklch(70% .02 270)','oklch(45% .05 280)','oklch(55% .1 280)',{kind:'os'}]},
+ {cat:'os',tag:'Хит',hit:1,name:'Gold Expirience',desc:'Полная версия: все возможности, всё ПО и новейшие разработки компании. Средний ценовой сегмент.',list:['Все 40+ предустановленных программ','Приоритетные обновления','Техподдержка 12 месяцев'],price:5990,unit:'лицензия на 1 ПК',art:['oklch(78% .16 85)','oklch(42% .2 300)','oklch(55% .24 303)',{kind:'os'}]},
+ {cat:'os',tag:'Для команд',name:'Gold Expirience Team',desc:'Пять лицензий Gold для студии или редакции с централизованной установкой и общей настройкой рабочих мест.',list:['5 лицензий Gold','Единая панель администратора','Скидка 20%'],price:23900,unit:'за 5 ПК',art:['oklch(60% .2 320)','oklch(30% .13 300)','oklch(80% .16 85)',{kind:'os'}]},
+ {cat:'soft',tag:'Дизайн',name:'Designer Studio',desc:'Набор для веб-дизайнеров: векторный редактор логотипов, конструктор макетов сайтов и библиотека шрифтов.',list:['Векторный редактор','Макеты и прототипы','Библиотека 800+ шрифтов'],price:1990,unit:'дополнение к Silver',art:['oklch(65% .24 330)','oklch(45% .22 285)','oklch(78% .16 85)',{kind:'design'}]},
+ {cat:'soft',tag:'Видео',name:'Video Pro Pack',desc:'Нелинейный монтаж, цветокоррекция и звук. Для ютуберов, блогеров и видеомонтажёров.',list:['Монтаж до 4K','Цветокоррекция','Библиотека переходов'],price:2490,unit:'дополнение к Silver',art:['oklch(58% .22 25)','oklch(35% .15 300)','oklch(80% .16 85)',{kind:'video'}]},
+ {cat:'soft',tag:'Фото',name:'Photo Lab',desc:'Обработка и ретушь фотографий, пакетная обработка RAW и удобная каталогизация снимков.',list:['Поддержка RAW','Ретушь и маски','Пакетный экспорт'],price:1490,unit:'дополнение к Silver',art:['oklch(70% .15 200)','oklch(42% .18 280)','oklch(82% .16 85)',{kind:'photo'}]},
+ {cat:'service',tag:'Услуга',name:'Установка и настройка',desc:'Специалист установит Star Platinum, перенесёт ваши файлы и настроит рабочее окружение под ваши задачи.',list:['Выезд по Екатеринбургу','Перенос данных','Обучение за 1 час'],price:1500,unit:'за выезд',art:['oklch(62% .2 170)','oklch(35% .12 260)','oklch(82% .16 85)',{kind:'service'}]},
+ {cat:'service',tag:'Услуга',name:'Обучение для студий',desc:'Мастер-класс для вашей команды: как работать быстрее в Star Platinum и предустановленных редакторах.',list:['Группа до 10 человек','Практика на ваших проектах','Сертификат'],price:9900,unit:'за занятие',art:['oklch(65% .2 40)','oklch(38% .17 310)','oklch(82% .16 85)',{kind:'service'}]},
+ {cat:'service',tag:'Подписка',name:'Расширенная поддержка',desc:'Продление техподдержки Gold Expirience: ответ в течение часа, удалённое подключение специалиста.',list:['Ответ в течение 1 часа','Удалённая помощь','Продление на 12 месяцев'],price:2900,unit:'в год',art:['oklch(55% .22 300)','oklch(28% .13 300)','oklch(82% .16 85)',{kind:'service'}]}
+];
+const grid=document.getElementById('catGrid');
+grid.innerHTML=products.map(p=>`
+ <article class="card reveal" data-cat="${p.cat}">
+  <div class="img">${screenSVG(...p.art.slice(0,3),p.art[3])}<span class="tag ${p.hit?'hit':''}">${p.tag}</span></div>
+  <div class="body"><h3>${p.name}</h3><p>${p.desc}</p>
+   <ul>${p.list.map(l=>`<li>${l}</li>`).join('')}</ul>
+   <div class="foot"><div class="price ${p.price===0?'free':''}">${fmt(p.price)}<small>${p.unit}</small></div>
+   <a class="btn ${p.price?'btn-violet':'btn-outline'}" href="mailto:info@star-platinum.ru?subject=${encodeURIComponent('Заказ: '+p.name)}">${p.price?'Заказать':'Получить'}</a></div></div>
+ </article>`).join('');
+document.querySelectorAll('[data-svg=desktop]').forEach(e=>e.innerHTML=screenSVG('oklch(78% .16 85)','oklch(42% .2 300)','oklch(55% .24 303)',{kind:'os'}));
+
+/* filters */
+document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===ch));
+  const f=ch.dataset.f;
+  grid.querySelectorAll('.card').forEach(c=>c.classList.toggle('hidden',f!=='all'&&c.dataset.cat!==f));
+}));
+
+/* ---------- router ---------- */
+const pages=['home','catalog','about'];
+const titles={home:'Star Platinum — операционная система для творчества',catalog:'Каталог — Star Platinum',about:'О нас — Star Platinum'};
+let io;
+function show(){
+  let p=location.hash.replace('#','');
+  if(!pages.includes(p))p='home';
+  pages.forEach(n=>document.getElementById('page-'+n).classList.toggle('active',n===p));
+  document.querySelectorAll('nav a').forEach(a=>a.toggleAttribute('aria-current',a.dataset.page===p)||a.removeAttribute('aria-current'));
+  document.querySelectorAll('nav a').forEach(a=>{if(a.dataset.page===p)a.setAttribute('aria-current','page')});
+  document.title=titles[p];
+  document.getElementById('menu').classList.remove('open');
+  window.scrollTo({top:0,behavior:'instant'});
+  observe();
+  countUp();
+}
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const hasGsap=typeof gsap!=='undefined'&&typeof ScrollTrigger!=='undefined';
+if(hasGsap)gsap.registerPlugin(ScrollTrigger);
+function observe(){
+  const els=[...document.querySelectorAll('.page.active .reveal:not(.in)')];
+  if(hasGsap&&!reduce){
+    ScrollTrigger.getAll().forEach(t=>t.kill());
+    els.forEach(e=>{e.classList.add('in');e.style.transition='none'});
+    ScrollTrigger.batch(els,{start:'top 90%',once:true,
+      onEnter:b=>gsap.fromTo(b,{opacity:0,y:40,scale:.97},{opacity:1,y:0,scale:1,duration:.8,ease:'power3.out',stagger:.1,overwrite:true})});
+    gsap.set(els,{opacity:0,y:40,scale:.97});
+    ScrollTrigger.refresh();
+    if(document.getElementById('page-home').classList.contains('active')){
+      heroIntro();
+      gsap.to('.hero .wrap > div:first-child',{y:50,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+      initHome();
+    }
+    if(document.getElementById('page-about').classList.contains('active'))initAbout();
+    return;
+  }
+  if(!('IntersectionObserver' in window)||reduce){document.body.classList.add('no-io');els.forEach(e=>e.classList.add('in'));return}
+  io&&io.disconnect();
+  io=new IntersectionObserver((en)=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  els.forEach((e,i)=>{e.style.transitionDelay=(i%4)*70+'ms';io.observe(e)});
+}
+function countUp(){
+  document.querySelectorAll('.page.active [data-count]').forEach(el=>{
+    const end=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now(),d=1200;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=end+suf;return}
+    (function f(t){const k=Math.min((t-t0)/d,1),v=Math.round(end*(1-Math.pow(1-k,3)));el.textContent=v+suf;if(k<1)requestAnimationFrame(f)})(t0);
+  });
+}
+addEventListener('hashchange',show);
+show();
+
+/* mobile menu */
+const burger=document.querySelector('.burger');
+burger.addEventListener('click',()=>{const o=document.getElementById('menu').classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+
+/* Vanilla-Tilt on catalog cards */
+if(typeof VanillaTilt!=='undefined'&&matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches){
+  VanillaTilt.init(document.querySelectorAll('.card'),{max:7,speed:500,scale:1.02,glare:true,'max-glare':.18,perspective:1000});
+}
+
+/* Zdog: floating 3D prism in hero */
+(function(){
+  const c=document.querySelector('.zdog-wrap');
+  if(!c||typeof Zdog==='undefined')return;
+  const illo=new Zdog.Illustration({element:c,zoom:2.4,dragRotate:true,rotate:{x:-.5,y:.6}});
+  const mk=(r,col,z,o)=>new Zdog.Polygon({addTo:illo,radius:r,sides:3,stroke:6,fill:true,color:col,translate:{z},rotate:{z:Math.PI/6*0-Math.PI/2},...o});
+  mk(36,'#7a2fd0',16);mk(36,'#5b1fa8',-16);
+  new Zdog.Polygon({addTo:illo,radius:20,sides:3,stroke:4,fill:true,color:'#f5c542',translate:{z:20},rotate:{z:-Math.PI/2}});
+  new Zdog.Ellipse({addTo:illo,diameter:90,stroke:2,color:'#ffffff88',rotate:{x:Math.PI/2}});
+  let spin=!reduce;
+  c.addEventListener('pointerdown',()=>spin=false);
+  (function tick(){ if(spin)illo.rotate.y+=.012; illo.updateRenderGraph(); requestAnimationFrame(tick); })();
+})();
+
+/* ===== team data, generated avatars & illustrations ===== */
+function getDepts(){return [
+ {t:'Дизайн',c:'#c9971a',head:['Трошин Илья','Веб-дизайнер',0],m:[]},
+ {t:'Разработка',c:'#7a2fd0',head:['Баранова Валерия','Директор отдела разработки',1],m:[['Казаков Олег','Программист',0],['Бычков Елисей','Программист',0],['Котов Андрей','DevOps-инженер',0]]},
+ {t:'Персонал',c:'#d6368a',head:['Киселев Тимофей','Директор по персоналу',0],m:[['Губанов Михаил','Менеджер по персоналу',0]]},
+ {t:'Бухгалтерия',c:'#139a74',head:['Швецова Ульяна','Главный бухгалтер',1],m:[['Ананьев Семён','Бухгалтер',0]]},
+ {t:'Маркетинг',c:'#e2662b',head:['Антипов Дмитрий','Директор по маркетингу',0],m:[['Михайлов Никита','Маркетолог',0]]},
+ {t:'Тестирование',c:'#2b7be2',head:['Кузьмина Анастасия','Главный тестировщик',1],m:[['Крылова Милана','Тестировщик',1]]}
+]}
+function getTop(){return [['Леванов Данил','Генеральный директор',0,'#c9971a'],['Носов Анатолий','Исполнительный директор',0,'#5b1fa8']]}
+function allPeople(){const a=[...getTop()];getDepts().forEach(d=>{a.push([...d.head,d.c]);d.m.forEach(m=>a.push([...m,d.c]))});return a}
+
+function avatar(seed,female,c){
+  let h=2166136261;for(const ch of seed){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)>>>0}
+  const rnd=()=>{h=(Math.imul(h,1103515245)+12345)>>>0;return h/4294967296};
+  const skin=['#f6d3b8','#efc09f','#e0a984','#f9dfcc'][rnd()*4|0];
+  const hair=['#2b1d14','#4a2f1b','#7a4a26','#b9783e','#1c1c22','#d9b26b'][rnd()*6|0];
+  const glasses=rnd()<.3,id='av'+h.toString(36);
+  const back=female?`<path d="M28 46c0-18 9-28 22-28s22 10 22 28v26c-6 4-38 4-44 0z" fill="${hair}"/>`:'';
+  const top=female?`<path d="M32 42c2-12 9-18 18-18s16 6 18 18c-6-6-12-9-18-9s-12 3-18 9z" fill="${hair}"/>`
+                  :`<path d="M32 42c0-14 8-20 18-20s18 6 18 20c-3-5-7-8-18-8s-15 3-18 8z" fill="${hair}"/>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="${c}" stop-opacity=".55"/></linearGradient><clipPath id="${id}c"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#${id}c)"><rect width="100" height="100" fill="url(#${id})"/>${back}<path d="M14 104c0-22 16-32 36-32s36 10 36 32z" fill="${c}"/><rect x="44" y="58" width="12" height="14" rx="5" fill="${skin}"/><circle cx="50" cy="44" r="17" fill="${skin}"/>${top}<circle cx="44" cy="46" r="1.9" fill="#2b1d14"/><circle cx="56" cy="46" r="1.9" fill="#2b1d14"/><path d="M45 52q5 4 10 0" stroke="#9b4a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>${glasses?'<g fill="none" stroke="#2b1d14" stroke-width="1.4"><circle cx="44" cy="46" r="4.5"/><circle cx="56" cy="46" r="4.5"/><path d="M48.5 46h3"/></g>':''}</g></svg>`;
+}
+function person(p,c,cls=''){return `<div class="person ${cls}" style="--c:${c}">${avatar(p[0],p[2],c)}<div><b>${p[0]}</b><span>${p[1]}</span></div></div>`}
+function buildOrg(){
+  const o=document.getElementById('org');if(!o||o.dataset.b)return;
+  const D=getDepts(),TOP=getTop();
+  o.innerHTML=`<div class="org-col">${person(TOP[0],TOP[0][3],'big')}<i class="vline"></i>${person(TOP[1],TOP[1][3],'big')}<i class="vline"></i></div>
+  <div class="org-depts">${D.map(d=>`<div class="dept" style="--c:${d.c}"><span class="dept-tag">${d.t}</span>${person(d.head,d.c)}${d.m.length?`<div class="dept-members">${d.m.map(m=>person(m,d.c)).join('')}</div>`:''}</div>`).join('')}</div>`;
+  o.dataset.b=1;
+  const lg=document.getElementById('orgLegend');
+  if(lg)lg.innerHTML=D.map(d=>`<span style="--c:${d.c}"><i></i>${d.t} · ${1+d.m.length}</span>`).join('')+'<span style="--c:#5b1fa8"><i></i>Руководство · 2</span>';
+}
+buildOrg();
+
+function stars(n,w,h,seed){let s='',k=seed;for(let i=0;i<n;i++){k=(k*9301+49297)%233280;const x=k/233280*w;k=(k*9301+49297)%233280;const y=k/233280*h;k=(k*9301+49297)%233280;s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(k/233280*1.4+.3).toFixed(2)}" fill="#fff" opacity="${(k/233280*.6+.2).toFixed(2)}"/>`}return s}
+
+function boxesSVG(){
+  const box=(x,y,w,h,d,front,side,top,label,lc)=>`<g>
+   <polygon points="${x},${y} ${x+w},${y} ${x+w},${y+h} ${x},${y+h}" fill="${front}"/>
+   <polygon points="${x+w},${y} ${x+w+d},${y-d*.6} ${x+w+d},${y+h-d*.6} ${x+w},${y+h}" fill="${side}"/>
+   <polygon points="${x},${y} ${x+d},${y-d*.6} ${x+w+d},${y-d*.6} ${x+w},${y}" fill="${top}"/>
+   <polygon points="${x+w/2},${y+h*.2} ${x+w*.8},${y+h*.62} ${x+w*.2},${y+h*.62}" fill="none" stroke="${lc}" stroke-width="7" stroke-linejoin="round"/>
+   <polygon points="${x+w/2},${y+h*.34} ${x+w*.66},${y+h*.56} ${x+w*.34},${y+h*.56}" fill="${lc}" opacity=".35"/>
+   <text x="${x+w/2}" y="${y+h*.84}" text-anchor="middle" font-family="Segoe UI,sans-serif" font-weight="800" font-size="15" letter-spacing="2" fill="${lc}">${label}</text></g>`;
+  return `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Коробочные версии Silver Cherriot и Gold Expirience">
+  <defs><radialGradient id="bxbg" cx=".7" cy=".2" r="1"><stop offset="0" stop-color="#6d2fc4"/><stop offset="1" stop-color="#1c0b38"/></radialGradient>
+  <linearGradient id="bxs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1f2f6"/><stop offset="1" stop-color="#b9bcc6"/></linearGradient>
+  <linearGradient id="bxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a3ffc"/><stop offset="1" stop-color="#4a1590"/></linearGradient></defs>
+  <rect width="400" height="300" fill="url(#bxbg)"/>${stars(60,400,300,7)}
+  <ellipse cx="205" cy="268" rx="160" ry="16" fill="#000" opacity=".35"/>
+  ${box(52,118,118,146,38,'url(#bxs)','#8e929e','#ffffff','SILVER','#5a5f6d')}
+  ${box(196,84,132,180,46,'url(#bxg)','#3a0f78','#f5c542','GOLD','#f5c542')}
+  <g fill="#f5c542"><path d="M352 52l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"><animateTransform attributeName="transform" type="rotate" from="0 352 66" to="360 352 66" dur="8s" repeatCount="indefinite"/></path><path d="M40 70l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".8"/></g>
+  </svg>`;
+}
+
+function teamSVG(){
+  const P=allPeople(),cx=200,cy=150;let av='';
+  P.forEach((p,i)=>{
+    const inner=i<5,k=inner?i:i-5,n=inner?5:10,a=-Math.PI/2+k*2*Math.PI/n+(inner?0:Math.PI/10);
+    const rx=inner?80:168,ry=inner?62:118,s=inner?44:38,x=cx+Math.cos(a)*rx-s/2,y=cy+Math.sin(a)*ry-s/2;
+    av+=`<g><circle cx="${x+s/2}" cy="${y+s/2}" r="${s/2+3}" fill="${p[3]}" opacity=".9"/>${avatar(p[0],p[2],p[3]).replace('<svg ',`<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${s}" height="${s}" `)}</g>`;
+  });
+  return `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Команда Star Platinum: 15 сотрудников">
+  <defs><radialGradient id="tmbg" cx=".5" cy=".5" r=".75"><stop offset="0" stop-color="#5a23a8"/><stop offset="1" stop-color="#190a33"/></radialGradient>
+  <linearGradient id="tmtri" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5c542"/><stop offset="1" stop-color="#c36bff"/></linearGradient></defs>
+  <rect width="400" height="300" fill="url(#tmbg)"/>${stars(50,400,300,3)}
+  <g fill="none" stroke="#ffffff55" stroke-width="1.2" stroke-dasharray="4 6">
+   <ellipse cx="${cx}" cy="${cy}" rx="80" ry="62"><animate attributeName="stroke-dashoffset" from="0" to="-100" dur="6s" repeatCount="indefinite"/></ellipse>
+   <ellipse cx="${cx}" cy="${cy}" rx="168" ry="118"><animate attributeName="stroke-dashoffset" from="0" to="100" dur="9s" repeatCount="indefinite"/></ellipse></g>
+  <polygon points="200,124 224,166 176,166" fill="none" stroke="url(#tmtri)" stroke-width="7" stroke-linejoin="round"><animateTransform attributeName="transform" type="rotate" from="0 200 152" to="360 200 152" dur="14s" repeatCount="indefinite"/></polygon>
+  ${av}</svg>`;
+}
+
+/* header dynamics */
+(function(){
+  const hdr=document.querySelector('header.site');
+  const onS=()=>hdr.classList.toggle('scrolled',scrollY>80);addEventListener('scroll',onS,{passive:true});onS();
+  const rot=document.querySelector('.brand .rot'),words=['дизайнеров','видеомонтажёров','фотографов','блогеров','веб-студий'];let wi=0;
+  if(rot&&!reduce)setInterval(()=>{rot.classList.add('out');setTimeout(()=>{wi=(wi+1)%words.length;rot.textContent=words[wi];rot.classList.remove('out')},350)},2600);
+  const now=new Date(),ekb=new Date(now.getTime()+(now.getTimezoneOffset()+300)*60000),d=ekb.getDay(),hr=ekb.getHours()+ekb.getMinutes()/60;
+  const open=d>=1&&d<=5&&hr>=9&&hr<18,ot=document.getElementById('openText');
+  if(ot){ot.textContent=(open?'Открыто сейчас · ':'Сейчас закрыто · ')+'Пн–Пт 9:00–18:00';document.querySelector('.topbar .pulse').classList.toggle('off',!open)}
+  const ul=document.querySelector('nav ul'),ind=ul.querySelector('.nav-ind'),links=[...ul.querySelectorAll('a')];
+  const mv=a=>{if(!a)return;ind.style.left=a.parentElement.offsetLeft+'px';ind.style.width=a.offsetWidth+'px';links.forEach(l=>l.classList.toggle('lit',l===a))};
+  const act=()=>links.find(l=>l.getAttribute('aria-current')==='page');
+  links.forEach(l=>l.addEventListener('mouseenter',()=>mv(l)));ul.addEventListener('mouseleave',()=>mv(act()));
+  addEventListener('hashchange',()=>setTimeout(()=>mv(act()),20));addEventListener('resize',()=>mv(act()));
+  mv(act());if(document.fonts)document.fonts.ready.then(()=>mv(act()));
+})();
+
+/* ===== WOW layer JS ===== */
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+function splitWords(el){
+  if(el.dataset.split)return;el.dataset.split=1;
+  const walk=n=>{[...n.childNodes].forEach(c=>{
+    if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t.trim()){f.append(t);return}const w=document.createElement('span');w.className='w';const i=document.createElement('span');i.className='wi';i.textContent=t;w.append(i);f.append(w)});c.replaceWith(f)}
+    else walk(c)})};
+  walk(el);
+}
+function heroIntro(){
+  splitWords(document.querySelector('.hero h1'));
+  const tl=gsap.timeline({defaults:{ease:'power4.out'}});
+  tl.from('.hero .eyebrow',{y:20,opacity:0,duration:.6})
+    .from('.hero h1 .wi',{yPercent:115,rotate:6,duration:1,stagger:.07},'-=.3')
+    .from('.hero .lead',{y:30,opacity:0,duration:.8},'-=.6')
+    .from('.hero .actions .btn',{y:30,opacity:0,scale:.9,duration:.7,stagger:.1},'-=.5')
+    .from('.photo-wrap',{y:80,opacity:0,duration:1.2},'-=1')
+    .from('.float',{opacity:0,duration:.6,stagger:.15},'-=.4');
+}
+function initHome(){
+  const hs=document.getElementById('hs');
+  hs.classList.remove('pinned');gsap.set(hs.querySelector('.hs-track'),{clearProps:'transform'});
+  if(innerWidth>900){
+    hs.classList.add('pinned');
+    const track=hs.querySelector('.hs-track'),bar=hs.querySelector('.hs-progress i');
+    const dist=()=>track.scrollWidth-innerWidth;
+    gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:hs,start:'top top',end:()=>'+='+dist(),pin:true,scrub:.8,invalidateOnRefresh:true,
+      onUpdate:s=>gsap.set(bar,{scaleX:s.progress})}});
+  }
+}
+document.querySelectorAll('[data-art]').forEach(e=>{
+  const cu={boxes:boxesSVG,team:teamSVG}[e.dataset.art];if(cu){e.innerHTML=cu();return}
+  const m={design:['oklch(65% .24 330)','oklch(45% .22 285)','oklch(78% .16 85)','design'],video:['oklch(58% .22 25)','oklch(35% .15 300)','oklch(80% .16 85)','video'],photo:['oklch(70% .15 200)','oklch(42% .18 280)','oklch(82% .16 85)','photo'],os:['oklch(60% .2 300)','oklch(30% .13 300)','oklch(82% .16 85)','os'],gold:['oklch(78% .16 85)','oklch(42% .2 300)','oklch(55% .24 303)','os'],silver:['oklch(78% .16 85)','oklch(42% .2 300)','oklch(55% .24 303)','os']}[e.dataset.art];
+  e.innerHTML=screenSVG(m[0],m[1],m[2],{kind:m[3]});
+});
+
+(function(){
+  const c=document.getElementById('cmp');if(!c)return;const r=c.querySelector('input');
+  const set=v=>c.style.setProperty('--pos',v+'%');
+  r.addEventListener('input',()=>set(r.value));
+  if(hasGsap&&!reduce)ScrollTrigger.create({trigger:c,start:'top 75%',once:true,onEnter:()=>{const o={v:50};gsap.to(o,{v:18,duration:.9,yoyo:true,repeat:1,ease:'power2.inOut',onUpdate:()=>{r.value=o.v;set(o.v)}})}});
+})();
+
+const prog=document.querySelector('.progress');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.transform='scaleX('+scrollY/Math.max(1,h.scrollHeight-innerHeight)+')'},{passive:true});
+
+if(fine){
+  document.body.classList.add('has-cursor');
+  const ring=document.querySelector('.cursor-ring'),dot=document.querySelector('.cursor-dot');
+  let x=0,y=0,rx=0,ry=0;
+  addEventListener('pointermove',e=>{x=e.clientX;y=e.clientY;dot.style.transform='translate('+x+'px,'+y+'px)';
+    const t=e.target.closest&&e.target.closest('a,button,.card,.dir,.cmp,.chip');ring.classList.toggle('big',!!t);
+    const sp=e.target.closest&&e.target.closest('.card,.dir');if(sp){const b=sp.getBoundingClientRect();sp.style.setProperty('--mx',e.clientX-b.left+'px');sp.style.setProperty('--my',e.clientY-b.top+'px')}});
+  (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px)';requestAnimationFrame(loop)})();
+}
+
+if(fine&&hasGsap&&!reduce){
+  document.querySelectorAll('.btn').forEach(b=>{
+    b.style.transition='box-shadow .25s';
+    b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.3,y:(e.clientY-r.top-r.height/2)*.4,duration:.3,ease:'power2.out'})});
+    b.addEventListener('pointerleave',()=>gsap.to(b,{x:0,y:0,duration:.7,ease:'elastic.out(1,.4)'}));
+  });
+}
+
+if(hasGsap&&!reduce){
+  const cur=document.querySelector('.curtain');gsap.set(cur,{y:'101%'});
+  let busy=false;
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href^="#"]');if(!a)return;
+    const h=a.getAttribute('href').slice(1);const now=location.hash.replace('#','')||'home';
+    if(!pages.includes(h)||h===now||busy)return;
+    e.preventDefault();busy=true;
+    gsap.timeline({onComplete:()=>busy=false})
+      .to(cur,{y:'0%',duration:.55,ease:'power3.inOut'})
+      .add(()=>{location.hash=h})
+      .to(cur,{y:'-101%',duration:.6,ease:'power3.inOut',delay:.25})
+      .set(cur,{y:'101%'});
+  });
+}
+
+function initAbout(){
+  buildOrg();
+  gsap.from('.org .person',{y:24,opacity:0,duration:.6,stagger:.05,ease:'back.out(1.6)',clearProps:'transform,opacity',scrollTrigger:{trigger:'.org',start:'top 80%'}});
+  const t=document.querySelector('.timeline');if(!t)return;
+  ScrollTrigger.create({trigger:t,start:'top 75%',end:'bottom 55%',scrub:true,onUpdate:s=>t.style.setProperty('--p',s.progress)});
+}
+
+(function(){
+  const host=document.querySelector('.hero');if(!host||typeof THREE==='undefined')return;
+  let r;try{
+    const cv=document.createElement('canvas');cv.className='hero-gl';host.prepend(cv);
+    r=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+  }catch(e){return}
+  r.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(45,1,.1,100);cam.position.z=7;
+  const N=innerWidth<700?500:1400,pos=new Float32Array(N*3);
+  for(let i=0;i<N;i++){const rad=5+Math.random()*14,th=Math.random()*6.283,ph=Math.acos(2*Math.random()-1);pos[i*3]=rad*Math.sin(ph)*Math.cos(th);pos[i*3+1]=rad*Math.sin(ph)*Math.sin(th);pos[i*3+2]=rad*Math.cos(ph)-4}
+  const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const stars=new THREE.Points(sg,new THREE.PointsMaterial({size:.045,color:0xffe9a8,transparent:true,opacity:.85,depthWrite:false}));
+  scene.add(stars);
+  const mk=(R)=>{const pts=[];for(let i=0;i<3;i++){const a=Math.PI/2+i*Math.PI*2/3;pts.push([Math.cos(a)*R,Math.sin(a)*R])}return pts};
+  const outer=new THREE.Shape(),hole=new THREE.Path();
+  mk(2).forEach((p,i)=>i?outer.lineTo(p[0],p[1]):outer.moveTo(p[0],p[1]));outer.closePath();
+  mk(1.05).forEach((p,i)=>i?hole.lineTo(p[0],p[1]):hole.moveTo(p[0],p[1]));hole.closePath();outer.holes.push(hole);
+  const geo=new THREE.ExtrudeGeometry(outer,{depth:.7,bevelEnabled:true,bevelSize:.07,bevelThickness:.07,bevelSegments:4});geo.center();
+  const prism=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:0x8a3ffc,metalness:.75,roughness:.22}));
+  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo,40),new THREE.LineBasicMaterial({color:0xf5c542,transparent:true,opacity:.7}));
+  const grp=new THREE.Group();grp.add(prism,edges);scene.add(grp);
+  scene.add(new THREE.AmbientLight(0xffffff,.45));
+  const l1=new THREE.PointLight(0xf5c542,2.2,30);l1.position.set(4,3,5);scene.add(l1);
+  const l2=new THREE.PointLight(0xc36bff,2.6,30);l2.position.set(-5,-2,4);scene.add(l2);
+  let baseY=.2;
+  function size(){const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;r.setSize(w,h,false);cam.aspect=w/h;
+    const m=w<900;baseY=m?1.4:.2;grp.position.x=m?0:2.4;grp.scale.setScalar(m?.7:1.15);cam.updateProjectionMatrix()}
+  addEventListener('resize',size);size();
+  let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
+  const clock=new THREE.Clock();let lastW=0;
+  (function frame(){
+    requestAnimationFrame(frame);
+    if(document.hidden||!document.getElementById('page-home').classList.contains('active'))return;
+    if(!host.clientWidth)return;
+    if(host.clientWidth!==lastW){lastW=host.clientWidth;size()}
+    const t=clock.getElapsedTime(),sc=Math.min(scrollY/innerHeight,1.5);
+    grp.rotation.y+=(mx*1.2+t*.25-grp.rotation.y)*.04;
+    grp.rotation.x+=(-my*.8+sc*.8-grp.rotation.x)*.05;
+    grp.position.y+=(baseY+Math.sin(t*1.2)*.12+sc*.8-grp.position.y)*.1;
+    stars.rotation.y=t*.02+mx*.2;stars.rotation.x=my*.15+sc*.2;
+    r.render(scene,cam);
+  })();
+})();
+addEventListener('load',()=>{if(hasGsap)ScrollTrigger.refresh()});
+</script>
+</body>
+</html>
